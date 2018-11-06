@@ -9,7 +9,7 @@
 #include <iostream>
 #include <string>
 
-/*struct Token {
+struct Token {
         enum {
 PLUS, MINUS, NUMBER, VARIABLE // , ... } type;
         union {
@@ -18,14 +18,14 @@ PLUS, MINUS, NUMBER, VARIABLE // , ... } type;
         };
 };
 
-struct node {
-
-  int token;
+struct Node {
+  Token expressie;
   node* left;
   node* right;
 
 }
 
+/*
 bool isBinaryOperator() const;
 
 
@@ -43,7 +43,10 @@ int main() {
 
   std::string invoer;
   std::cin >> invoer;
-  
+
+  Node* vakje = new Node;
+  vakje->expressie = invoer;
+  cout << vakje->expressie << ;
 
 
 
