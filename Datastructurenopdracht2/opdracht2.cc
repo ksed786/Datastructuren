@@ -3,6 +3,7 @@
 //Datum:    07-11-2018
 
 #include <string>
+#include <iostream>
 #include <sstream>
 #include <istream>
 #include "token.h"
@@ -15,8 +16,11 @@ void MakeTree (std::string invoer){
 
     std::istringstream stream(invoer);
     stream >> deel;
+      //std::cout << deel << std::endl;
+
     Node* root = new Node(deel);
     while (stream >> deel) {
+      //std::cout << deel << std::endl;
       root->AddNode(deel);
     }
 
@@ -24,9 +28,13 @@ void MakeTree (std::string invoer){
 
 
 
+
 int main() {
 
+
 MakeTree("+ 5 * 6 7");
+//root->DOT();
+
 
   return 0;
 }

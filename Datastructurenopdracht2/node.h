@@ -9,6 +9,10 @@ public:
   Node(std::string woord);
   void AddNode(std::string woord);
   bool iscomplete();
+  void PrintNode();
+  bool Connection(int &a, int &b);
+
+private:
   Token* token;
   Node* left;
   Node* right;
@@ -38,8 +42,8 @@ void Node::AddNode(std::string woord) {
         right->AddNode(woord);
       }
     }
-    else if (arity == 0) {
-      std::cout << "error" << std::endl;
+    else if (arity == 0){
+      std::cout << "Error!" << std::endl;
     }
 }
 
@@ -54,5 +58,23 @@ bool Node::iscomplete() {
   }
   else return false;
 }
+
+std::ostream &operator<<(std::ostream &s, const Token *token) {
+s << "TOKEN";
+return s;
+}
+
+/*
+void Node::DOT () {
+    int counter = 0;
+    std::cout << "digraph G {" << std::endl;
+    for (int i = 0; i < lenght;i++) {
+      std::cout << "  " << counter << "[label=" << PrintNode() << "]" std::endl;    //print(token)
+      if (connection(a, b))
+        std::cout << a << "->" << b << std::endl;
+    }
+
+}*/
+
 
 #endif
