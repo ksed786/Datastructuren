@@ -10,21 +10,7 @@
 //#include <stack>
 
 
-/*
-bool isBinaryOperator() const;
-
-
-void PreOrder (node *root){
-
-  cout << root->data << ;
-  if (root->left != NULL)
-    PreOrder(root->left);
-  if (root->right != NULL)
-    PreOrder(root->right);
-*/
-
 int main() {
-
 
 
 
