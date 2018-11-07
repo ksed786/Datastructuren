@@ -2,16 +2,14 @@
 //          Kousar Sedigi  (s1461907)
 //Datum:    07-11-2018
 
-
-#include<stdio.h>
-#include<stdlib.h>
-
 #include <iostream>
 #include <string>
+//#include "stlstack2.h"
+#include <stack>
 
 struct Token {
         enum {
-PLUS, MINUS, NUMBER, VARIABLE // , ... } type;
+PLUS, MINUS, NUMBER, VARIABLE } type;
         union {
             char variable;
             double number;
@@ -19,11 +17,11 @@ PLUS, MINUS, NUMBER, VARIABLE // , ... } type;
 };
 
 struct Node {
-  Token expressie;
-  node* left;
-  node* right;
+  char expressie;
+  Node* left;
+  Node* right;
 
-}
+};
 
 /*
 bool isBinaryOperator() const;
@@ -44,9 +42,28 @@ int main() {
   std::string invoer;
   std::cin >> invoer;
 
-  Node* vakje = new Node;
-  vakje->expressie = invoer;
-  cout << vakje->expressie << ;
+
+  std::stack<char> first;
+
+
+  for (int i=0; i < invoer.length();i++){
+
+    first.push(invoer.at(i));
+    if (first.top() == '(')
+      first.pop();
+
+    else if (first.top() == ')') {
+      first.pop();
+      Node* vakje = new Node;
+      vakje->expressie = first.top();
+      std::cout << vakje->expressie << std::endl;
+    }
+
+  }
+
+
+
+
 
 
 
