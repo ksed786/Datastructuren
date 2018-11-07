@@ -4,8 +4,10 @@
 
 #include <iostream>
 #include <string>
-//#include "stlstack2.h"
-#include <stack>
+#include <sstream>
+#include <istream>
+
+//#include <stack>
 
 struct Token {
         enum {
@@ -39,14 +41,46 @@ void PreOrder (node *root){
 
 int main() {
 
+
   std::string invoer;
   std::cin >> invoer;
 
+  //h is een hulp character. De waarde van h moet de waarde van de vorige "moeder node" zijn.
+  char h = ' '
 
-  std::stack<char> first;
+  //hulp pointer
+  Node* wijzer = new Node;
 
+  //hij moet dus nu de boom gaan opbouwen
+  for (int i=0; i < invoer.length();i++) {
 
-  for (int i=0; i < invoer.length();i++){
+    // als invoer.at een spatie is niks doen.
+    if (invoer.at(i) != ' ') {
+      Node* vakje = new Node;
+      vakje->expressie = invoer.at(i);
+
+      // als hier true uit komt heb je dus een getal te pakken.
+      if (invoer.at(i) != '*' || invoer.at(i) != '/' ||
+          invoer.at(i) != '+' || invoer.at(i) != '-' ||
+          invoer.at(i) != '^') {
+
+        // Hier moet een functie aangeroepen worden die de pointer links of rechts van de moeder node (een operator)
+        // naar dit vakje wijst. In de eerste instatie moet je dus de linker hebben. Je moet rechts doen als moeder->links != 0.
+        // Deze functie heb ik nog niet gemaakt.
+
+      }//if
+
+      //zorgt dat h veranderd en volgende iteratie gebruikt kan worden.
+      h = invoer.at(i);
+
+    }//if
+
+  }//for
+
+  std::cout << std::endl;
+
+  //std::stack<char> first;
+  /*for (int i=0; i < invoer.length();i++){
 
     first.push(invoer.at(i));
     if (first.top() == '(')
@@ -59,8 +93,10 @@ int main() {
       std::cout << vakje->expressie << std::endl;
     }
 
-  }
-
+  }*/
+  /*Node* vakje = new Node;
+  vakje->expressie = first.top();
+  std::cout << vakje->expressie << std::endl;*/
 
 
 
