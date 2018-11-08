@@ -2,6 +2,7 @@
 #define node_h
 
 #include "token.h"
+#include <iostream>
 
 class Node {
 public:
@@ -39,7 +40,7 @@ void Node::AddNode(std::string woord) {
       }
     }
     else if (arity == 0) {
-      std::cout << "error" << std::endl;
+      std::cout << "blabla" << '\n';
     }
 }
 

@@ -28,15 +28,15 @@ Token::Token(std::string woord) {
   else if (woord == "/")
     type = DIV;
   else if (woord == "sin")
-    type = SIN
+    type = SIN;
   else if (woord == "cos")
-    type = COS
+    type = COS;
   else if (woord == "pi")
-    type = PI
-  else if (std::stringstream(woord) >> letter) {
-    type = VAR;
-    variable = letter;
-  } 
+    type = PI;
+  //else if (std::stringstream(woord) >> letter) {
+  //  type = VAR;
+    //variable = letter;
+  //}
   else if (std::stringstream(woord) >> value) {
     type = NUM;
     number = value;
