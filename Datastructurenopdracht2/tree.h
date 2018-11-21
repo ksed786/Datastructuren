@@ -69,12 +69,17 @@ void Tree::PreOrder (Node *root){
 }
 
 void Tree::TreeSimplify (Node *root) {
-  if (!root->left->iscomplete())
+  if (root->left != nullptr) {
     TreeSimplify(root->left);
-  if (!root->right->iscomplete())
+  }
+  if (root->right != nullptr) {
     TreeSimplify(root->right);
-  root->Simplify();
-
+  }
+  if (root->token->type == Token::PLUS) {
+    root->Simplify();
+    root->left = nullptr;
+    root->right = nullptr;
+  }
 }
 
 

@@ -64,7 +64,6 @@ bool Node::iscomplete() {
 }
 
 void Node::Simplify() {
-  if (!left->iscomplete() || !right->iscomplete()) {
     double a = left->token->number;
     double b = right->token->number;
     if (token->type == Token::PLUS) {
@@ -72,8 +71,6 @@ void Node::Simplify() {
       token->type = Token::NUM;
       token->number = a;
     }
-
-  }
 }
 
 
