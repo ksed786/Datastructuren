@@ -19,8 +19,10 @@ PLUS, MIN , NUM, VAR, MULT,DIV , SIN, COS, PI } type;
 Token::Token(std::string woord) {
   double value;
   char letter;
-  if (woord == "+")
+  if (woord == "+") {
     type = PLUS;
+    variable = '+'
+  }
   else if (woord == "-")
     type = MIN;
   else if (woord == "*")
@@ -33,17 +35,11 @@ Token::Token(std::string woord) {
     type = COS;
   else if (woord == "pi")
     type = PI;
-<<<<<<< HEAD
 //  else if (std::stringstream(woord) >> letter) {
 //    type = VAR;
 //    variable = letter;
 //}
-=======
-  //else if (std::stringstream(woord) >> letter) {
-  //  type = VAR;
-    //variable = letter;
-  //}
->>>>>>> Kousar
+
   else if (std::stringstream(woord) >> value) {
     type = NUM;
     number = value;

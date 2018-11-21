@@ -8,40 +8,13 @@
 #include <istream>
 #include "token.h"
 #include "node.h"
-//#include "tree.h"
+#include "tree.h"
 //#include <stack>
 
-/*
-bool isBinaryOperator() const;
+
+//bool isBinaryOperator() const;
 
 
-
-void PreOrder (node *root){
-
-  std::cout << root->token.type << ;
-  if (root->left != NULL)
-    PreOrder(root->left);
-  if (root->right != NULL)
-    PreOrder(root->right);
-}
-*/
-
-
-
-void MakeTree (std::string invoer){
-    std::string deel;
-
-    std::istringstream stream(invoer);
-    stream >> deel;
-      //std::cout << deel << std::endl;
-
-    Node* root = new Node(deel);
-    while (stream >> deel) {
-      //std::cout << deel << std::endl;
-      root->AddNode(deel);
-    }
-
-}
 
 
 
@@ -49,7 +22,9 @@ void MakeTree (std::string invoer){
 int main() {
 
 
-MakeTree("+ 5 * 6 7");
+Tree S;
+S.MakeTree("+ 5 * 6 7");
+S.PreOrder();
 //root->DOT();
 
 

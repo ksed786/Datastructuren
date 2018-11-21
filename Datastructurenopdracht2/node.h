@@ -43,13 +43,9 @@ void Node::AddNode(std::string woord) {
         right->AddNode(woord);
       }
     }
-<<<<<<< HEAD
     else if (arity == 0){
       std::cout << "Error!" << std::endl;
-=======
-    else if (arity == 0) {
-      std::cout << "blabla" << '\n';
->>>>>>> Kousar
+
     }
 }
 
