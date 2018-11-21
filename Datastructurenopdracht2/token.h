@@ -9,7 +9,7 @@ public:
   Token(std::string woord);
   int arity();
         enum {
-PLUS, MIN , NUM, VAR, MULT,DIV , SIN, COS, PI } type;
+PLUS, MIN , NUM, VAR, MULT, DIV , SIN, COS, PI } type;
         union {
             char variable;
             double number;
@@ -21,14 +21,21 @@ Token::Token(std::string woord) {
   char letter;
   if (woord == "+") {
     type = PLUS;
-    variable = '+'
+    variable = '+';
   }
-  else if (woord == "-")
+  else if (woord == "-") {
     type = MIN;
-  else if (woord == "*")
+    variable = '-';
+  }
+  else if (woord == "*"){
     type = MULT;
-  else if (woord == "/")
+    variable = '*';
+  }
+  else if (woord == "/") {
     type = DIV;
+    variable = '/';
+  }
+  // EXP
   else if (woord == "sin")
     type = SIN;
   else if (woord == "cos")

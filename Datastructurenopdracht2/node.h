@@ -12,8 +12,9 @@ public:
   bool iscomplete();
   void PrintNode();
   bool Connection(int &a, int &b);
+  void Simplify();
 
-private:
+
   Token* token;
   Node* left;
   Node* right;
@@ -54,17 +55,27 @@ bool Node::iscomplete() {
   if (arity == 0)
     return true;
   if (arity == 2 ) {
-    if (left != nullptr && right != nullptr && left->iscomplete() && right->iscomplete())
+    if (left != nullptr && right != nullptr &&
+        left->iscomplete() && right->iscomplete())
       return true;
     else return false;
   }
   else return false;
 }
 
-std::ostream &operator<<(std::ostream &s, const Token *token) {
-s << "TOKEN";
-return s;
+void Node::Simplify() {
+  if (!left->iscomplete() || !right->iscomplete()) {
+    double a = left->token->number;
+    double b = right->token->number;
+    if (token->type == Token::PLUS) {
+      a = a + b;
+      token->type = Token::NUM;
+      token->number = a;
+    }
+
+  }
 }
+
 
 /*
 void Node::DOT () {
