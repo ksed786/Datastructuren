@@ -26,12 +26,8 @@ b = 2;
 
 
 Tree S;
-<<<<<<< HEAD
-S.MakeTree("+ + 2 5 + 2 5", root);
-=======
+
 S.MakeTree("cos 5", root);
-S.TreeSimplify(root);
->>>>>>> Kousar
 S.PreOrder(root); std::cout << std::endl;
 S.InOrder(root); std::cout << std::endl;
 S.DOT(root, a, b);

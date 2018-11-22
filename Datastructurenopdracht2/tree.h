@@ -4,7 +4,6 @@
 #include "node.h"
 #include "token.h"
 #include <iostream>
-#include <cmath>
 
 
 class Tree {
@@ -37,19 +36,14 @@ void Tree::MakeTree (std::string invoer, Node *&root){
 
 void Tree::InOrder (Node *root){
 
-
   if (root->left != NULL)
     InOrder(root->left);
 
   if(root->token->type == Token::PLUS || Token::MIN ||
                           Token::MULT || Token::DIV || Token::VAR)
-      std::cout << ' ' << root->token->variable;
-  if(root->token->type == Token::SIN)
-      std::cout << "sin";
-  if(root->token->type == Token::COS)
-      std::cout << "cos";
+      std::cout << root->token->variable << ' ';
   if (root->token->type == Token::NUM)
-      std::cout << root->token->number;
+      std::cout << root->token->number << ' ';
 
   if (root->right != NULL)
     InOrder(root->right);
@@ -60,13 +54,10 @@ void Tree::PreOrder (Node *root){
 
   if(root->token->type == Token::PLUS || Token::MIN ||
                           Token::MULT || Token::DIV || Token::VAR)
-    std::cout << ' ' << root->token->variable;
+    std::cout << root->token->variable << ' ';
   if (root->token->type == Token::NUM)
-    std::cout << root->token->number;
-  if(root->token->type == Token::SIN)
-    std::cout << "sin";
-  if(root->token->type == Token::COS)
-    std::cout << "cos";
+    std::cout << root->token->number << ' ';
+
   if (root->left != NULL)
     PreOrder(root->left);
   if (root->right != NULL)
@@ -82,16 +73,11 @@ void Tree::TreeSimplify (Node *root) {
   if (root->right != nullptr) {
     TreeSimplify(root->right);
   }
-  if (root->token->arity() == 2) {
+  if (root->token->type == Token::PLUS) {
     root->Simplify();
     root->left = nullptr;
     root->right = nullptr;
   }
-  else if (root->token->arity() == 1) {
-    root->Simplify();
-    root->left = nullptr;
-  }
-
 }
 
 //commentaar
@@ -125,18 +111,6 @@ void Tree::DOT (Node *root, int &a, int &b) {
   std::cout << "}" << std::endl;
   std::cout << std::endl << std::endl << std::endl << std::endl;
 }
-
-/*int Tree::NumberOfNodes(Node *root, int &numberofnodes) {
-
-  if (root->left != NULL) {
-    NumberofNodes(root->left, numberofnodes++);
-  }
-  if (root->right != NULL) {
-    NumberofNodes(root->right, numberofnodes++)
-  }
-  return numberofnodes;
-}*/
-
 
 
 
