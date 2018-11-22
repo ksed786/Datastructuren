@@ -43,6 +43,8 @@ void Tree::InOrder (Node *root){
   if(root->token->type == Token::PLUS || Token::MIN ||
                           Token::MULT || Token::DIV || Token::VAR)
       std::cout << ' ' << root->token->variable;
+  if (root->token->type == Token::PI)
+      std::cout << "pi";
   if(root->token->type == Token::SIN)
       std::cout << "sin";
   if(root->token->type == Token::COS)
@@ -64,6 +66,8 @@ void Tree::PreOrder (Node *root){
     std::cout << ' ' << root->token->variable;
   if (root->token->type == Token::NUM)
     std::cout << root->token->number;
+  if (root->token->type == Token::PI)
+    std::cout << "pi";
   if(root->token->type == Token::SIN)
     std::cout << "sin";
   if(root->token->type == Token::COS)
@@ -81,7 +85,7 @@ void Tree::TreeSimplify (Node *root) {
     TreeSimplify(root->left);
   }
   if (root->right != nullptr) {
-    TreeSimplify(root->right);
+  TreeSimplify(root->right);
   }
   if (root->token->arity() == 2) {
     root->Simplify();

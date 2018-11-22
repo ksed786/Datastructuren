@@ -79,6 +79,7 @@ bool Node::iscomplete() {
 }
 
 void Node::Simplify() {
+    if (token->arity() == 2) {
     double a = left->token->number;
     double b = right->token->number;
     if (token->type == Token::PLUS) {
@@ -106,15 +107,20 @@ void Node::Simplify() {
       token->type = Token::NUM;
       token->number = a;
     }
-    else if (token->type == Token::SIN) {
+  }
+  else if (token->arity() == 1){
+    double a = left->token->number;
+     if (token->type == Token::SIN) {
       a = sin(a);
       token->type = Token::NUM;
       token->number = a;
     }
     else if (token->type == Token::COS) {
+      a = cos(a);
       token->type = Token::NUM;
-      token->number = cos(a);
+      token->number = a;
     }
+  }
 
 }
 

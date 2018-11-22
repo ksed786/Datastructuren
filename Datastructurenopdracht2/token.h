@@ -47,14 +47,14 @@ Token::Token(std::string woord) {
     type = PI;
     number = 3.14159265359;
   }
-//  else if (std::stringstream(woord) >> letter) {
-//    type = VAR;
-//    variable = letter;
-//}
-
   else if (std::stringstream(woord) >> value) {
     type = NUM;
     number = value;
+  }
+  else  {
+    letter = woord[0];
+    type = VAR;
+    variable = letter;
   }
 }
 

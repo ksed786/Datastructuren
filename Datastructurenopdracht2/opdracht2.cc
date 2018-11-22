@@ -24,11 +24,14 @@ int main() {
 
 
 Tree S;
-S.MakeTree("cos 5", root);
+S.MakeTree("* 2 b", root);
+S.PreOrder(root); std::cout << std::endl;
+S.InOrder(root); std::cout << std::endl;
+S.TreeSimplify(root);
 S.TreeSimplify(root);
 S.PreOrder(root); std::cout << std::endl;
 S.InOrder(root); std::cout << std::endl;
-//S.DOT();
+
 
 
   return 0;
