@@ -13,6 +13,7 @@ public:
   void PrintNode();
   bool Connection(int &a, int &b);
   void Simplify();
+  void Destructor();
 
 
   Token* token;
@@ -64,16 +65,25 @@ bool Node::iscomplete() {
 }
 
 void Node::Simplify() {
-  if (!left->iscomplete() || !right->iscomplete()) {
+  std::cout << "blasimplify" << '\n';
     double a = left->token->number;
+    std::cout << a << '\n';
     double b = right->token->number;
+    std::cout << b << '\n';
     if (token->type == Token::PLUS) {
       a = a + b;
+      std::cout << a << '\n';
       token->type = Token::NUM;
       token->number = a;
-    }
 
   }
+}
+
+void Node::Destructor() {
+  left = nullptr;
+  delete left;
+  right = nullptr;
+  delete right;
 }
 
 

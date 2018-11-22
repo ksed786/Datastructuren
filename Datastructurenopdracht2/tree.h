@@ -69,11 +69,26 @@ void Tree::PreOrder (Node *root){
 }
 
 void Tree::TreeSimplify (Node *root) {
-  if (!root->left->iscomplete())
+  if (root->left->token->arity() == 0 && root->right->token->arity() == 0){
+    std::cout << "bla0" << '\n';
+    root->Simplify();
+    root->left = nullptr;
+    root->right= nullptr;
+  }
+  if (root->left->token->arity() != 0) {
+    std::cout << "bla1" << '\n';
     TreeSimplify(root->left);
-  if (!root->right->iscomplete())
+  }
+  if (root->right->token->arity() != 0) {
+    std::cout << "bla2" << '\n';
     TreeSimplify(root->right);
-  root->Simplify();
+  }
+  if (root->left->token->arity() == 0 && root->right->token->arity() == 0){
+    std::cout << "bla0" << '\n';
+    root->Simplify();
+    root->left = nullptr;
+    root->right= nullptr;
+  }
 
 }
 
