@@ -79,41 +79,47 @@ bool Node::iscomplete() {
 }
 
 void Node::Simplify() {
-    double a = left->token->number;
-    double b = right->token->number;
-    if (token->type == Token::PLUS) {
-      a = a + b;
-      token->type = Token::NUM;
-      token->number = a;
+    if(token->arity() == 2) {
+      double a = left->token->number;
+      double b = right->token->number;
+
+      if (token->type == Token::PLUS) {
+        a = a + b;
+        token->type = Token::NUM;
+        token->number = a;
+      }
+      else if (token->type == Token::MIN) {
+        a = a - b;
+        token->type = Token::NUM;
+        token->number = a;
+      }
+      else if (token->type == Token::MULT) {
+        a = a * b;
+        token->type = Token::NUM;
+        token->number = a;
+      }
+      else if (token->type == Token::DIV) {
+        a = a / b;
+        token->type = Token::NUM;
+        token->number = a;
+      }
+      else if (token->type == Token::EXP) {
+        a = pow(a , b);
+        token->type = Token::NUM;
+        token->number = a;
+      }
     }
-    else if (token->type == Token::MIN) {
-      a = a - b;
-      token->type = Token::NUM;
-      token->number = a;
-    }
-    else if (token->type == Token::MULT) {
-      a = a * b;
-      token->type = Token::NUM;
-      token->number = a;
-    }
-    else if (token->type == Token::DIV) {
-      a = a / b;
-      token->type = Token::NUM;
-      token->number = a;
-    }
-    else if (token->type == Token::EXP) {
-      a = pow(a , b);
-      token->type = Token::NUM;
-      token->number = a;
-    }
-    else if (token->type == Token::SIN) {
-      a = sin(a);
-      token->type = Token::NUM;
-      token->number = a;
-    }
-    else if (token->type == Token::COS) {
-      token->type = Token::NUM;
-      token->number = cos(a);
+    if(token->arity() == 1) {
+      double a = left->token->number;
+      if (token->type == Token::SIN) {
+        a = sin(a);
+        token->type = Token::NUM;
+        token->number = a;
+      }
+      else if (token->type == Token::COS) {
+        token->type = Token::NUM;
+        token->number = cos(a);
+      }
     }
 
 }
