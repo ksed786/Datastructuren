@@ -9,7 +9,7 @@ public:
   Token(std::string woord);
   int arity();
         enum {
-PLUS, MIN , NUM, VAR, MULT, DIV , SIN, COS, PI } type;
+PLUS, MIN , NUM, VAR, MULT, EXP, DIV, SIN, COS, PI } type;
         union {
             char variable;
             double number;
@@ -35,13 +35,18 @@ Token::Token(std::string woord) {
     type = DIV;
     variable = '/';
   }
-  // EXP
+  else if (woord == "^") {
+    type = EXP;
+    variable = '^';
+  }
   else if (woord == "sin")
     type = SIN;
   else if (woord == "cos")
     type = COS;
-  else if (woord == "pi")
+  else if (woord == "pi") {
     type = PI;
+    number = 3.14159265359;
+  }
 //  else if (std::stringstream(woord) >> letter) {
 //    type = VAR;
 //    variable = letter;
@@ -59,6 +64,7 @@ int Token::arity() {
     case MIN:
     case MULT:
     case DIV:
+    case EXP:
    return 2;
 
     case NUM:

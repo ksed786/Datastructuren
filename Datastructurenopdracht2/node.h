@@ -3,6 +3,7 @@
 
 #include "token.h"
 #include <iostream>
+#include <cmath>
 
 class Node {
 public:
@@ -44,6 +45,15 @@ void Node::AddNode(std::string woord) {
         right->AddNode(woord);
       }
     }
+    if (arity == 1) {
+      if (left == nullptr) {
+        left = new Node(woord);
+      }
+      else if (!left->iscomplete()) {
+        left->AddNode(woord);
+      }
+    }
+
     else if (arity == 0){
       std::cout << "Error!" << std::endl;
 
@@ -60,6 +70,11 @@ bool Node::iscomplete() {
       return true;
     else return false;
   }
+  if (arity == 1){
+    if (left != nullptr && left->iscomplete())
+      return true;
+    else return false;
+  }
   else return false;
 }
 
@@ -71,6 +86,36 @@ void Node::Simplify() {
       token->type = Token::NUM;
       token->number = a;
     }
+    else if (token->type == Token::MIN) {
+      a = a - b;
+      token->type = Token::NUM;
+      token->number = a;
+    }
+    else if (token->type == Token::MULT) {
+      a = a * b;
+      token->type = Token::NUM;
+      token->number = a;
+    }
+    else if (token->type == Token::DIV) {
+      a = a / b;
+      token->type = Token::NUM;
+      token->number = a;
+    }
+    else if (token->type == Token::EXP) {
+      a = pow(a , b);
+      token->type = Token::NUM;
+      token->number = a;
+    }
+    else if (token->type == Token::SIN) {
+      a = sin(a);
+      token->type = Token::NUM;
+      token->number = a;
+    }
+    else if (token->type == Token::COS) {
+      token->type = Token::NUM;
+      token->number = cos(a);
+    }
+
 }
 
 

@@ -24,7 +24,7 @@ int main() {
 
 
 Tree S;
-S.MakeTree("+ + 2 5 + 2 5", root);
+S.MakeTree("cos 5", root);
 S.TreeSimplify(root);
 S.PreOrder(root); std::cout << std::endl;
 S.InOrder(root); std::cout << std::endl;
