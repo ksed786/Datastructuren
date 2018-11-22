@@ -4,7 +4,6 @@
 #include "node.h"
 #include "token.h"
 #include <iostream>
-#include <cmath>
 
 
 class Tree {
@@ -12,11 +11,12 @@ class Tree {
     void MakeTree(std::string invoer, Node *&root);
     void PreOrder(Node *root);
     void InOrder(Node *root);
-    void Dot();
+    void DOT(Node *root, int &a, int &b, int &c);
     void TreeSimplify(Node *root);
+    //int NumberOfNodes(Node *root, int &numberofnodes);
 
-
-
+    int a, b;
+    char name;
 };
 
 void Tree::MakeTree (std::string invoer, Node *&root){
@@ -88,16 +88,77 @@ void Tree::TreeSimplify (Node *root) {
   TreeSimplify(root->right);
   }
   if (root->token->arity() == 2) {
-    root->Simplify();
-    root->left = nullptr;
-    root->right = nullptr;
+    if (root->left->token->type == Token::NUM && root->right->token->type == Token::NUM) {
+      root->Simplify();
+      root->left = nullptr;
+      root->right = nullptr;
+    }
   }
   else if (root->token->arity() == 1) {
-    root->Simplify();
-    root->left = nullptr;
+    if (root->left->token->type == Token::NUM && root->right->token->type == Token::NUM) {
+      root->Simplify();
+      root->left = nullptr;
+    }
   }
 
 }
+
+//commentaar
+void Tree::DOT (Node *root, int &a, int &b, int &c) {
+    //Diagraph een naam geven (hoofletter) en het begin van de sequence.
+    if (a == 1 && b == 2) {
+      std::cout<< "Insert letter: diagraph name" << std::endl;
+      std::cin >> name;
+      std::cout << std::endl << std::endl << std::endl << "diagraph "
+                << name << " {" << std::endl;
+    }
+
+    //printnode
+    std::cout << "  " << c << " [label=" << '"';
+      if(root->token->type == Token::PLUS || Token::MIN ||
+                              Token::MULT || Token::DIV || Token::VAR)
+          std::cout << root->token->variable;
+      if (root->token->type == Token::NUM)
+          std::cout << root->token->number;
+      if(root->token->type == Token::SIN)
+        std::cout << "sin";
+      if(root->token->type == Token::COS)
+        std::cout << "cos";
+      std::cout << '"' << "]" << std::endl;
+
+     // gaat linker node in.
+      if (root->left != nullptr) {
+        c++;
+        a++;
+        b++;
+        DOT(root->left, a, b, c);
+      }
+
+      //gaat rechter node in.
+      if (root->right != nullptr) {
+        c++;
+        b++;
+        DOT(root->right, a, b, c);
+      }
+
+      //printconnectie
+      if (root->left == nullptr) {
+        a--;
+        b--;
+        std::cout << "  " << a << "->" << b << std::endl;
+        a++;
+        b++;
+
+      }
+
+  //std::cout << b << c << '\n';
+  //if () {
+  //  std::cout << "}" << std::endl;
+  //  std::cout << std::endl << std::endl << std::endl << std::endl;
+//  }
+}
+
+
 
 
 #endif

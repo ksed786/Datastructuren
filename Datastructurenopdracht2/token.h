@@ -2,6 +2,7 @@
 #define token_h
 
 #include <string>
+#include <cstring>
 
 class Token {
 public:
@@ -51,7 +52,11 @@ Token::Token(std::string woord) {
     type = NUM;
     number = value;
   }
+<<<<<<< HEAD
   else  {
+=======
+  else {
+>>>>>>> Olivier
     letter = woord[0];
     type = VAR;
     variable = letter;

@@ -12,18 +12,17 @@
 //#include <stack>
 
 Node* root;
-
+int a, b, c;
 //bool isBinaryOperator() const;
 
-
-
-
-
-
 int main() {
+a = 1;
+b = 2;
+c = 1;
 
 
 Tree S;
+<<<<<<< HEAD
 S.MakeTree("* 2 b", root);
 S.PreOrder(root); std::cout << std::endl;
 S.InOrder(root); std::cout << std::endl;
@@ -32,6 +31,16 @@ S.TreeSimplify(root);
 S.PreOrder(root); std::cout << std::endl;
 S.InOrder(root); std::cout << std::endl;
 
+=======
+
+S.MakeTree("+ + b 5 5", root);
+S.PreOrder(root); std::cout << std::endl;
+S.InOrder(root); std::cout << std::endl;
+//S.DOT(root, a, b, c);
+S.TreeSimplify(root);
+S.PreOrder(root); std::cout << std::endl;
+S.InOrder(root); std::cout << std::endl;
+>>>>>>> Olivier
 
 
   return 0;
