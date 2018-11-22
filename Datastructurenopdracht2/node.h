@@ -74,17 +74,4 @@ void Node::Simplify() {
 }
 
 
-/*
-void Node::DOT () {
-    int counter = 0;
-    std::cout << "digraph G {" << std::endl;
-    for (int i = 0; i < lenght;i++) {
-      std::cout << "  " << counter << "[label=" << PrintNode() << "]" std::endl;    //print(token)
-      if (connection(a, b))
-        std::cout << a << "->" << b << std::endl;
-    }
-
-}*/
-
-
 #endif

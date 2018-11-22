@@ -12,7 +12,7 @@
 //#include <stack>
 
 Node* root;
-
+int a, b;
 //bool isBinaryOperator() const;
 
 
@@ -21,14 +21,16 @@ Node* root;
 
 
 int main() {
+a = 1;
+b = 2;
 
 
 Tree S;
 S.MakeTree("+ + 2 5 + 2 5", root);
-S.TreeSimplify(root);
 S.PreOrder(root); std::cout << std::endl;
 S.InOrder(root); std::cout << std::endl;
-//S.DOT();
+S.DOT(root, a, b);
+S.TreeSimplify(root);
 
 
   return 0;
