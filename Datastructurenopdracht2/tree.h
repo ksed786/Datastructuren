@@ -4,6 +4,7 @@
 #include "node.h"
 #include "token.h"
 #include <iostream>
+#include <cmath>
 
 
 class Tree {
@@ -42,9 +43,13 @@ void Tree::InOrder (Node *root){
 
   if(root->token->type == Token::PLUS || Token::MIN ||
                           Token::MULT || Token::DIV || Token::VAR)
-      std::cout << root->token->variable << ' ';
+      std::cout << ' ' << root->token->variable;
+  if(root->token->type == Token::SIN)
+      std::cout << "sin";
+  if(root->token->type == Token::COS)
+      std::cout << "cos";
   if (root->token->type == Token::NUM)
-      std::cout << root->token->number << ' ';
+      std::cout << root->token->number;
 
   if (root->right != NULL)
     InOrder(root->right);
@@ -55,10 +60,13 @@ void Tree::PreOrder (Node *root){
 
   if(root->token->type == Token::PLUS || Token::MIN ||
                           Token::MULT || Token::DIV || Token::VAR)
-    std::cout << root->token->variable << ' ';
+    std::cout << ' ' << root->token->variable;
   if (root->token->type == Token::NUM)
-    std::cout << root->token->number << ' ';
-
+    std::cout << root->token->number;
+  if(root->token->type == Token::SIN)
+    std::cout << "sin";
+  if(root->token->type == Token::COS)
+    std::cout << "cos";
   if (root->left != NULL)
     PreOrder(root->left);
   if (root->right != NULL)
@@ -74,11 +82,16 @@ void Tree::TreeSimplify (Node *root) {
   if (root->right != nullptr) {
     TreeSimplify(root->right);
   }
-  if (root->token->type == Token::PLUS) {
+  if (root->token->arity() == 2) {
     root->Simplify();
     root->left = nullptr;
     root->right = nullptr;
   }
+  else if (root->token->arity() == 1) {
+    root->Simplify();
+    root->left = nullptr;
+  }
+
 }
 
 //commentaar
