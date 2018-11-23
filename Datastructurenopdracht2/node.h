@@ -15,7 +15,7 @@ public:
   void PrintNode();
   //bool Connection(int &a, int &b);
   void Simplify();
-  void Differentiate();
+  void Differentiate(char x);
 
 
   Token* token;
@@ -244,8 +244,29 @@ void Node::Simplify() {
 }
 
 //differentieert node.
-void Node::Differentiate() {
-
+void Node::Differentiate(char x) {
+  //constante
+  if (token->type == Token::NUM)
+    token->number = 0;
+  //variable x == x
+  if (token->type == Token::VAR && token->variable == x) {
+    token->type = Token::NUM;
+    token->number = 1;
+  }
+  //variable y != x
+  if (token->type == Token::VAR && token->variable != x) {
+    token->type = Token::NUM;
+    token->number = 0;
+  }
+  //macht met constante
+  //cos(x)
+  //if (token->type == Token::SIN) {
+  //  token->type = Token::COS;
+  //}
+  //sin(x)
+  if (token->type == Token::SIN) {
+    token->type = Token::COS;
+  }
 }
 
 

@@ -4,6 +4,7 @@
 #include "node.h"
 #include "token.h"
 #include <iostream>
+#include <string>
 
 
 class Tree {
@@ -13,7 +14,8 @@ class Tree {
     void InOrder(Node *root);
     void DOT(Node *root, int &a, int &b, int &c);
     void TreeSimplify(Node *root);
-    void TreeDifferentiate(Node *root);
+    void TreeDifferentiate(Node *root, char x);
+    void CopySubTree(Node *root);
     //int NumberOfNodes(Node *root, int &numberofnodes);
 
     int a, b;
@@ -33,6 +35,26 @@ void Tree::MakeTree (std::string invoer, Node *&root){
       root->AddNode(deel);
     }
 
+}
+
+void Tree::CopySubTree(Node *root){
+  std::stringstream ss;
+  std::string str;
+  Node* copy;
+  if (root->token->type == Token::NUM) {
+    ss << root->token->number;
+    ss >> str;
+    copy = new Node(str);
+  }
+  else {
+    ss << root->token->variable;
+    ss >> str;
+    copy = new Node(str);
+  }
+  if (root->left != nullptr)
+    CopySubTree(Copy->left)
+  if (root->right != nullptr)
+    CopySubTree(Copy->right)
 }
 
 void Tree::InOrder (Node *root){
@@ -124,14 +146,22 @@ void Tree::TreeSimplify (Node *root) {
     }
     TreeSimplify(root->right);
   }
-  if (root->token->arity() == 2)
+  if (root->token->arity() == 2)          //is dit niet onnodig???
     root->Simplify();
-  else if (root->token->arity() == 1)
+  else if (root->token->arity() == 1)      //********************************
     root->Simplify();
 }
 
-//differentieerd de boom.
-void Tree::TreeDifferentiate(Node *root) {
+//differentieerd de boom. deze functie moet recursief zijn.
+void Tree::TreeDifferentiate(Node *root, char x) {
+  if (root->left != nullptr)
+    TreeDifferentiate(root, x);
+  if (root->right != nullptr) {
+    TreeDifferentiate(root, x);
+    root->Differentiate(x);
+  //iets van nieuwe subboom maken met pointer sub? ofmoet dit in NODE?
+  //return sub;
+  }
 
 }
 
