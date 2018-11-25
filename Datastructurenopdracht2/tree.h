@@ -51,11 +51,12 @@ void Tree::CopySubTree(Node *root){
     ss >> str;
     copy = new Node(str);
   }
-  if (root->left != nullptr)
-    CopySubTree(Copy->left)
-  if (root->right != nullptr)
-    CopySubTree(Copy->right)
+  //if (root->left != nullptr)
+  //  CopySubTree(Copy->left);
+  //if (root->right != nullptr)
+  //  CopySubTree(Copy->right);
 }
+
 
 void Tree::InOrder (Node *root){
 
@@ -166,7 +167,7 @@ void Tree::TreeDifferentiate(Node *root, char x) {
 }
 
 //commentaar
-/*void Tree::DOT (Node *root, int &a, int &b, int &c) {
+void Tree::DOT (Node *root, int &a, int &b, int &c) {
     //Diagraph een naam geven (hoofletter) en het begin van de sequence.
     if (a == 0 && b == 1) {
       std::cout<< "Insert letter: diagraph name" << std::endl;
@@ -188,14 +189,13 @@ void Tree::TreeDifferentiate(Node *root, char x) {
         std::cout << "cos";
       std::cout << '"' << "]" << std::endl;
       if (!(a == 0 && b == 1)) {
-        std::cout << "  " << a << "->" << b << std::endl;
+      std::cout << "  " << a << "->" << b << std::endl;
       }
 
      // gaat linker node in.
       if (root->left != nullptr) {
         a++;
         b++;
-        c++;
         DOT(root->left, a, b, c);
         a--;
       }
@@ -214,7 +214,7 @@ void Tree::TreeDifferentiate(Node *root, char x) {
   //  std::cout << std::endl << std::endl << std::endl << std::endl;
 //  }
 }
-*/
+
 
 
 

@@ -34,24 +34,25 @@ char x;
 int main() {
 //beginDOT
 a = 0;
-b = 0;
+b = 1;
 c = 0;
 
 Tree S;
-std::cout << "Naar welke variablen differentieren? Voer in:" << '\n';
-std::cin >> x;
+//std::cout << "Naar welke variablen differentieren? Voer in:" << '\n';
+//std::cin >> x;
 
-S.MakeTree("5", root);
-S.CopySubTree(root);
-std::cout << "de afgeleide van ' ";
+S.MakeTree("+ + + 5 5 5 5", root);
+//S.CopySubTree(root);
+//std::cout << "de afgeleide van ' ";
 //S.PreOrder(root);
 //S.InOrder(root); std::cout << std::endl;
 //S.TreeDifferentiate(root, x);
-//S.DOT(root, a, b, c);
+S.DOT(root, a, b, c);
 //S.TreeSimplify(root);
-std::cout << " ' is ' ";
-//S.PreOrder(root);
-std::cout << " '" << '\n';
+//std::cout << " ' is ' ";
+S.PreOrder(root);
+std::cout << '\n';
+//std::cout << " '" << '\n';
 //S.InOrder(root); std::cout << std::endl;
 
 

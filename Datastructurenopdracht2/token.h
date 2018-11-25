@@ -52,11 +52,8 @@ Token::Token(std::string woord) {
     type = NUM;
     number = value;
   }
-<<<<<<< HEAD
-  else  {
-=======
+
   else {
->>>>>>> Olivier
     letter = woord[0];
     type = VAR;
     variable = letter;
