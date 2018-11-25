@@ -12,7 +12,7 @@ class Tree {
     void MakeTree(std::string invoer, Node *&root);
     void PreOrder(Node *root);
     void InOrder(Node *root);
-    void DOT(Node *root, int &a, int &b, int &c);
+    void DOT(Node *root, int &b);
     void TreeSimplify(Node *root);
     void TreeDifferentiate(Node *root, char x);
     void CopySubTree(Node *root);
@@ -20,6 +20,7 @@ class Tree {
 
     int a, b;
     char name;
+    int nodenumber = 1;
 };
 
 void Tree::MakeTree (std::string invoer, Node *&root){
@@ -29,15 +30,16 @@ void Tree::MakeTree (std::string invoer, Node *&root){
     stream >> deel;
       //std::cout << deel << std::endl;
 
-    root = new Node(deel);
+    root = new Node(deel, nodenumber);
     while (stream >> deel) {
       //std::cout << deel << std::endl;
-      root->AddNode(deel);
+      nodenumber++;
+      root->AddNode(deel, nodenumber);
     }
 
 }
 
-void Tree::CopySubTree(Node *root){
+/* void Tree::CopySubTree(Node *root){
   std::stringstream ss;
   std::string str;
   Node* copy;
@@ -56,6 +58,7 @@ void Tree::CopySubTree(Node *root){
   //if (root->right != nullptr)
   //  CopySubTree(Copy->right);
 }
+*/
 
 
 void Tree::InOrder (Node *root){
@@ -167,16 +170,16 @@ void Tree::TreeDifferentiate(Node *root, char x) {
 }
 
 //commentaar
-void Tree::DOT (Node *root, int &a, int &b, int &c) {
+void Tree::DOT (Node *root , int &b) {
     //Diagraph een naam geven (hoofletter) en het begin van de sequence.
-    if (a == 0 && b == 1) {
-      std::cout<< "Insert letter: diagraph name" << std::endl;
-      std::cin >> name;
-      std::cout << std::endl << std::endl << std::endl << "digraph "
-                << name << " {" << std::endl;
-    }
+    //if (a == 0 && b == 1) {
+    //  std::cout<< "Insert letter: diagraph name" << std::endl;
+    //  std::cin >> name;
+  //    std::cout << std::endl << std::endl << std::endl << "digraph "
+  //              << name << " {" << std::endl;
+//}
 
-    //printnode
+  // printnode
     std::cout << "  " << b << " [label=" << '"';
       if(root->token->type == Token::PLUS || Token::MIN ||
                               Token::MULT || Token::DIV || Token::VAR)
@@ -188,25 +191,29 @@ void Tree::DOT (Node *root, int &a, int &b, int &c) {
       if(root->token->type == Token::COS)
         std::cout << "cos";
       std::cout << '"' << "]" << std::endl;
-      if (!(a == 0 && b == 1)) {
-      std::cout << "  " << a << "->" << b << std::endl;
-      }
+
+
+
 
      // gaat linker node in.
+     b++;
       if (root->left != nullptr) {
-        a++;
-        b++;
-        DOT(root->left, a, b, c);
-        a--;
+        std::cout << root->count << "->" << root->left->count << std::endl;
+        DOT(root->left, b);
       }
 
       //gaat rechter node in.
-      if (root->right != nullptr) {
-        a++;
-        b++;
-        DOT(root->right, a, b, c);
-        a--;
+        if (root->right != nullptr) {
+        std::cout << root->count << "->" << root->right->count << std::endl;
+        DOT(root->right, b);
       }
+
+
+
+
+
+
+
 
   //std::cout << b << c << '\n';
   //if () {

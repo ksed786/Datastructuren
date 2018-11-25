@@ -1,0 +1,17 @@
+if (root->left != nullptr) {
+  b++;
+  c = a;
+  std::cout << "  " << a << "->" << b << std::endl;
+  DOT(root->left, a=b, b, c);
+  a=c;
+}
+
+//gaat rechter node in.
+  if (root->right != nullptr) {
+  b++;
+  c=a;
+  std::cout << "  " << a << "->" << b << std::endl;
+  DOT(root->right, a=b, b, c);
+  a=c;
+  c--;
+}
