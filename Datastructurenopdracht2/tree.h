@@ -16,16 +16,16 @@ class Tree {
     void TreeSimplify(Node *root);
     void TreeDifferentiate(Node *root, char x);
     void CopySubTree(Node *root);
+    void Evalueren(Node *&root, char x, int nieuwewaarde);
     //int NumberOfNodes(Node *root, int &numberofnodes);
 
     int a, b;
     char name;
-    int nodenumber = 1;
 };
 
 void Tree::MakeTree (std::string invoer, Node *&root){
     std::string deel;
-
+    int nodenumber = 1;
     std::istringstream stream(invoer);
     stream >> deel;
       //std::cout << deel << std::endl;
@@ -220,6 +220,18 @@ void Tree::DOT (Node *root , int &b) {
   //  std::cout << "}" << std::endl;
   //  std::cout << std::endl << std::endl << std::endl << std::endl;
 //  }
+}
+
+void Tree::Evalueren (Node *&root, char x, int nieuwewaarde) {
+  if(root->token->variable == x){
+    root->token->type = Token::NUM;
+    root->token->number = nieuwewaarde;
+  }
+  if (root->left != nullptr)
+    Evalueren(root->left, x , nieuwewaarde);
+  if (root->right != nullptr)
+    Evalueren(root->right, x , nieuwewaarde);
+
 }
 
 
