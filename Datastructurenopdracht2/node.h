@@ -10,7 +10,7 @@ class Node {
 public:
 
   Node(std::string woord);
-  void AddNode(std::string woord);
+  void AddNode(std::string woord, int &i);
   bool IsComplete();
   void PrintNode();
   //bool Connection(int &a, int &b);
@@ -21,7 +21,7 @@ public:
   Token* token;
   Node* left;
   Node* right;
-  //int i;  nog niet gebruikt
+  int count;
 
 };
 
@@ -30,24 +30,26 @@ Node::Node(std::string woord) {
   token = new Token(woord);
   left = nullptr;
   right = nullptr;
+  count = 0;
 }
 
 //voeg node toe. Deze functie wordt aangeroepen door MakeTree.
-void Node::AddNode(std::string woord) {
+void Node::AddNode(std::string woord, int &i) {
     int arity = token->arity();
-
+    std::cout << i << '\n';
+    std::cout << count << '\n';
     if (arity == 2) {
       if (left == nullptr) {
         left = new Node(woord);
       }
       else if (!left->IsComplete()) {
-        left->AddNode(woord);
+        left->AddNode(woord, i);
       }
       else if (right == nullptr) {
         right = new Node(woord);
       }
       else if (!right->IsComplete()) {
-        right->AddNode(woord);
+        right->AddNode(woord, i);
       }
     }
     if (arity == 1) {
@@ -55,7 +57,7 @@ void Node::AddNode(std::string woord) {
         left = new Node(woord);
       }
       else if (!left->IsComplete()) {
-        left->AddNode(woord);
+        left->AddNode(woord, i);
       }
     }
 

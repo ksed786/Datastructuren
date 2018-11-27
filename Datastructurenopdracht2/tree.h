@@ -9,7 +9,7 @@
 
 class Tree {
   public:
-    void MakeTree(std::string invoer, Node *&root);
+    void MakeTree(std::string invoer, Node *&root, int &i);
     void PreOrder(Node *root);
     void InOrder(Node *root);
     void DOT(Node *root, int &a, int &b, int &c);
@@ -22,7 +22,7 @@ class Tree {
     char name;
 };
 
-void Tree::MakeTree (std::string invoer, Node *&root){
+void Tree::MakeTree (std::string invoer, Node *&root, int &i){
     std::string deel;
 
     std::istringstream stream(invoer);
@@ -32,7 +32,9 @@ void Tree::MakeTree (std::string invoer, Node *&root){
     root = new Node(deel);
     while (stream >> deel) {
       //std::cout << deel << std::endl;
-      root->AddNode(deel);
+      i++;
+      root->count = i;
+      root->AddNode(deel, i);
     }
 
 }
@@ -51,10 +53,10 @@ void Tree::CopySubTree(Node *root){
     ss >> str;
     copy = new Node(str);
   }
-  if (root->left != nullptr)
-    CopySubTree(Copy->left)
-  if (root->right != nullptr)
-    CopySubTree(Copy->right)
+  //if (root->left != nullptr)
+  //  CopySubTree(Copy->left);
+  //if (root->right != nullptr)
+  //  CopySubTree(Copy->right);
 }
 
 void Tree::InOrder (Node *root){
@@ -93,6 +95,7 @@ void Tree::PreOrder (Node *root){
     std::cout << "sin";
   if(root->token->type == Token::COS)
     std::cout << "cos";
+  std::cout << " " << root->count << '\n';
   if (root->left != NULL)
     PreOrder(root->left);
   if (root->right != NULL)
@@ -154,28 +157,29 @@ void Tree::TreeSimplify (Node *root) {
 
 //differentieerd de boom. deze functie moet recursief zijn.
 void Tree::TreeDifferentiate(Node *root, char x) {
-  if (root->left != nullptr)
-    TreeDifferentiate(root, x);
-  if (root->right != nullptr) {
-    TreeDifferentiate(root, x);
+  if ((root->left->token->type == Token::NUM || root->left->token->type == Token::VAR) &&
+     (root->right->token->type == Token::NUM || root->right->token->type == Token::VAR)) {
     root->Differentiate(x);
+  }
+  else {
+    TreeDifferentiate(root->left, x);
+    TreeDifferentiate(root->right, x);
+  }
   //iets van nieuwe subboom maken met pointer sub? ofmoet dit in NODE?
   //return sub;
-  }
-
 }
 
 //commentaar
-/*void Tree::DOT (Node *root, int &a, int &b, int &c) {
+void Tree::DOT (Node *root, int &a, int &b, int &c) {
     //Diagraph een naam geven (hoofletter) en het begin van de sequence.
-    if (a == 0 && b == 1) {
+  /*  if (a == 0 && b == 1) {
       std::cout<< "Insert letter: diagraph name" << std::endl;
       std::cin >> name;
       std::cout << std::endl << std::endl << std::endl << "digraph "
                 << name << " {" << std::endl;
-    }
+    } */
 
-    //printnode
+    //if ()
     std::cout << "  " << b << " [label=" << '"';
       if(root->token->type == Token::PLUS || Token::MIN ||
                               Token::MULT || Token::DIV || Token::VAR)
@@ -187,9 +191,9 @@ void Tree::TreeDifferentiate(Node *root, char x) {
       if(root->token->type == Token::COS)
         std::cout << "cos";
       std::cout << '"' << "]" << std::endl;
-      if (!(a == 0 && b == 1)) {
-        std::cout << "  " << a << "->" << b << std::endl;
-      }
+
+      std::cout << "  " << a << "->" << b << std::endl;
+
 
      // gaat linker node in.
       if (root->left != nullptr) {
@@ -214,7 +218,6 @@ void Tree::TreeDifferentiate(Node *root, char x) {
   //  std::cout << std::endl << std::endl << std::endl << std::endl;
 //  }
 }
-*/
 
 
 
