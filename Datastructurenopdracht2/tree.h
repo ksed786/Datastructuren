@@ -12,13 +12,12 @@ class Tree {
     void MakeTree(std::string invoer, Node *&root);
     void PreOrder(Node *root);
     void InOrder(Node *root);
-    void DOT(Node *root, int &a, int &b, int &c);
+    //void DOT(Node *root, int &a, int &b, int &c);
     void TreeSimplify(Node *root);
     void TreeDifferentiate(Node *root, char x);
-    void CopySubTree(Node *root);
+    //void CopySubTree(Node *root);
     //int NumberOfNodes(Node *root, int &numberofnodes);
 
-    int a, b;
     char name;
 };
 
@@ -37,6 +36,8 @@ void Tree::MakeTree (std::string invoer, Node *&root){
 
 }
 
+
+/*
 void Tree::CopySubTree(Node *root){
   std::stringstream ss;
   std::string str;
@@ -55,7 +56,7 @@ void Tree::CopySubTree(Node *root){
     CopySubTree(Copy->left)
   if (root->right != nullptr)
     CopySubTree(Copy->right)
-}
+} */
 
 void Tree::InOrder (Node *root){
 
@@ -146,11 +147,13 @@ void Tree::TreeSimplify (Node *root) {
     }
     TreeSimplify(root->right);
   }
-  if (root->token->arity() == 2)          //is dit niet onnodig???
+  if (root->token->arity() == 2)
     root->Simplify();
-  else if (root->token->arity() == 1)      //********************************
+  else if (root->token->arity() == 1)   //********************************
     root->Simplify();
 }
+
+
 
 //differentieerd de boom. deze functie moet recursief zijn.
 void Tree::TreeDifferentiate(Node *root, char x) {
