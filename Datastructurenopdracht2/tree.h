@@ -16,7 +16,7 @@ class Tree {
     void TreeSimplify(Node *root);
     void TreeDifferentiate(Node *root, char x);
     void CopySubTree(Node *root);
-    void Evalueren(Node *&root, char x, int nieuwewaarde);
+    void Evalueren(Node *&root, int x);
     //int NumberOfNodes(Node *root, int &numberofnodes);
 
     int a, b;
@@ -222,15 +222,15 @@ void Tree::DOT (Node *root , int &b) {
 //  }
 }
 
-void Tree::Evalueren (Node *&root, char x, int nieuwewaarde) {
+void Tree::Evalueren (Node *&root, int x) {
   if(root->token->variable == x){
     root->token->type = Token::NUM;
-    root->token->number = nieuwewaarde;
+    root->token->number = x;
   }
   if (root->left != nullptr)
-    Evalueren(root->left, x , nieuwewaarde);
+    Evalueren(root->left, x);
   if (root->right != nullptr)
-    Evalueren(root->right, x , nieuwewaarde);
+    Evalueren(root->right, x);
 
 }
 
