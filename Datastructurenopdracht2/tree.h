@@ -18,20 +18,15 @@ class Tree {
     void MakeTree(std::string invoer, Node *&root);
     void PreOrder(Node *root);
     void InOrder(Node *root);
-<<<<<<< HEAD
     void DOT(std::ofstream &myfile, Node *root, int &b);
-=======
-    void DOT(std::ofstream &myfile, Node *root , int &b);
->>>>>>> Olivier
     void TreeSimplify(Node *root);
     void TreeDifferentiate(Node *root, char x);
     void Evalueren(Node *&root, int x);
     void NodeNummerGoedZetten(Node *&root, int b);
     void Maakboomleeg(Node *&root);
-<<<<<<< HEAD
-    //int NumberOfNodes(Node *root, int &numberofnodes);
-=======
->>>>>>> Olivier
+
+
+
 
     int a, b;
     char name;
@@ -57,13 +52,9 @@ void Tree::MakeTree (std::string invoer, Node *&root){
 
 //print in in-orde
 void Tree::InOrder (Node *root){
-<<<<<<< HEAD
-
   if (root->left != NULL)
     std::cout << "(";
 
-=======
->>>>>>> Olivier
   if (root->left != NULL)
     InOrder(root->left);
 
@@ -80,24 +71,17 @@ void Tree::InOrder (Node *root){
 
   if (root->right != NULL) {
     InOrder(root->right);
-<<<<<<< HEAD
+
     std::cout << ")" ;
   }
 
-
-
-=======
->>>>>>> Olivier
 }
 
 
 //print in pre-orde. wordt niet gebruikt bij de interface,
 //maar is vooral gebruikt het checken van ons programma.
 void Tree::PreOrder (Node *root){
-<<<<<<< HEAD
-  std::cout << "(" << '\n';
-=======
->>>>>>> Olivier
+
   if(root->token->type == Token::PLUS || Token::MIN ||
                           Token::MULT || Token::DIV ||
                           Token::VAR)
@@ -112,12 +96,7 @@ void Tree::PreOrder (Node *root){
     PreOrder(root->left);
   if (root->right != NULL)
     PreOrder(root->right);
-<<<<<<< HEAD
-  std::cout << ")" << '\n';
 
-
-=======
->>>>>>> Olivier
 }
 
 //versimpelt the boom
@@ -177,11 +156,8 @@ void Tree::TreeDifferentiate(Node *root, char x) {
   root->Differentiate(x);
 }
 
-<<<<<<< HEAD
-//commentaar
-=======
+
 //schrijft een file uit met DOT notatie van de boom
->>>>>>> Olivier
 void Tree::DOT (std::ofstream &myfile, Node *root , int &b) {
 
     if (b==1){
@@ -203,12 +179,9 @@ void Tree::DOT (std::ofstream &myfile, Node *root , int &b) {
     }
       myfile << "]" << std::endl;;
       b++;
-<<<<<<< HEAD
+
 
   }
-
-
-
 
   // gaat linker node in.
   if (root->left != nullptr) {
@@ -253,63 +226,6 @@ void Tree::DOT (std::ofstream &myfile, Node *root , int &b) {
     myfile << root->count << "->" << root->right->count << std::endl;
     DOT(myfile, root->right, b);
   }
-
-=======
->>>>>>> Olivier
-
-  }
-
-  // gaat linker node in.
-  if (root->left != nullptr) {
-    if (root->left->token->type == Token::NUM){
-      myfile << "  " << root->left->count << " [label=";
-      myfile << root->left->token->number;
-    }
-    else {
-      myfile << "  " << root->left->count << " [label=" << '\"';
-      if(root->left->token->type == Token::PLUS || Token::MIN ||
-                              Token::MULT || Token::DIV || Token::VAR)
-          myfile << root->left->token->variable;
-      if(root->left->token->type == Token::SIN)
-        myfile << "sin";
-      if(root->left->token->type == Token::COS)
-        myfile << "cos";
-        myfile << '\"';
-    }
-      myfile << "]" << std::endl;
-    myfile << root->count << "->" << root->left->count << std::endl;
-    DOT(myfile, root->left, b);
-  }
-
-<<<<<<< HEAD
-//std::cout << b << c << '\n';
-//if () {
-//  std::cout << "}" << std::endl;
-//  std::cout << std::endl << std::endl << std::endl << std::endl;
-//  }
-=======
-  //gaat rechter node in.
-  if (root->right != nullptr) {
-    if (root->right->token->type == Token::NUM){
-      myfile << "  " << root->right->count << " [label=";
-      myfile << root->right->token->number;
-    }
-    else {
-      myfile << "  " << root->right->count << " [label=" << '\"';
-    if(root->right->token->type == Token::PLUS || Token::MIN ||
-                            Token::MULT || Token::DIV || Token::VAR)
-        myfile << root->right->token->variable;
-    if(root->right->token->type == Token::SIN)
-      myfile << "sin";
-    if(root->right->token->type == Token::COS)
-      myfile << "cos";
-    myfile << '\"';
-  }
-    myfile << "]" << std::endl;
-    myfile << root->count << "->" << root->right->count << std::endl;
-    DOT(myfile, root->right, b);
-  }
->>>>>>> Olivier
 }
 
 //laat variable x invullen en uitwerken.
@@ -325,20 +241,6 @@ void Tree::Evalueren (Node *&root, int x) {
 }
 
 void Tree::NodeNummerGoedZetten (Node *&root, int a) {
-  root->count = a;
-  if (root->left != nullptr){
-    a++;
-    NodeNummerGoedZetten(root->left, a);
-  }
-  if (root->right != nullptr){
-    a++;
-    NodeNummerGoedZetten(root->right, a);
-  }
-
-}
-
-<<<<<<< HEAD
-void Tree::NodeNummerGoedZetten (Node *&root, int a) {
   std::cout << a << '\n';
   root->count = a;
   if (root->left != nullptr){
@@ -353,10 +255,6 @@ void Tree::NodeNummerGoedZetten (Node *&root, int a) {
 }
 
 void Tree::Maakboomleeg(Node *&root){
-
-=======
-void Tree::Maakboomleeg(Node *&root){
->>>>>>> Olivier
   if (root->left->left != nullptr)
     Maakboomleeg(root->left);
   if (root->right->left != nullptr)
@@ -370,11 +268,5 @@ void Tree::Maakboomleeg(Node *&root){
     root = nullptr;
   }
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> Olivier
-
-
 
 #endif
