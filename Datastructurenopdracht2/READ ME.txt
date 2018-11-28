@@ -1,0 +1,29 @@
+//Auteurs:  Olivier Koster (s1826182)
+//         	    Kousar Sedigi  (s1461907)
+//Datum:    28-11-2018
+
+Dit is een extra uitleg voor het programma ons programma.
+Het programma doet in principe alles wat in de opdracht staat. 
+
+Enkele gevallen worden echter niet correct afgehandeld;
+
+1. Wanneer 2 getallen met een komma opgeteld worden komt er een vraagteken voor het getal te staan.
+- Dit is mogelijk op te lossen met:
+- Hier was echter geen tijd voor.
+
+2. De expressie '0 - X' wordt niet versimpelt naar '-X'.
+
+3. Er staat een functie voor het printen van de pre-orde notatie in.
+- Deze wordt niet aangeroepen.
+- Deze is gebruikt voor ons eigen test gemak.
+
+4.  losse nodes en bomen worden niet 'netjes' opgeruimd.
+- Dit is het geval omdat wij te weinig tijd hadden om dit correct te doen.
+
+5. Menu niet uit te zetten dmv flags argument.
+- ook door tijdnood.
+
+6. Verkeerde expressies worden niet geheel opgevangen
+- ook door tijdnood.
+
+
