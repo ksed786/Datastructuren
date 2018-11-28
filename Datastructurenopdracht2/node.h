@@ -1,3 +1,7 @@
+//Auteurs:  Olivier Koster (s1826182)
+//          Kousar Sedigi  (s1461907)
+//Datum:    28-11-2018
+
 #ifndef node_h
 #define node_h
 
@@ -5,15 +9,14 @@
 #include <iostream>
 #include <cmath>
 
-//classe van Node
+//klasse voor knoop
 class Node {
 public:
 
   Node(std::string woord, int nodenumber);
   void AddNode(std::string woord , int nodenumber);
   bool IsComplete();
-  void PrintNode();
-  //bool Connection(int &a, int &b);
+  Node *CopySubTree();
   void Simplify();
   void Differentiate(char x);
 
@@ -22,7 +25,6 @@ public:
   Node* left;
   Node* right;
   int count;
-  //int i;  nog niet gebruikt
 
 };
 
@@ -84,6 +86,32 @@ bool Node::IsComplete() {
     else return false;
   }
   else return false;
+}
+
+//kopieert subbomen voor differentieren.
+Node *Node::CopySubTree(){
+  //std::cout << "Ingang copyfunctie" << '\n';
+  std::stringstream ss;
+  std::string str;
+  Node* copy;
+  int iets;
+  if (token->type == Token::NUM) {
+  //  std::cout << "ingang getal" << '\n';
+    ss << token->number;
+    ss >> str;
+    copy = new Node(str, iets);
+  }
+  else {
+    //std::cout << "ingang + of x" << '\n';
+    ss << token->variable;
+    ss >> str;
+    copy = new Node(str, iets);
+  }
+  if (left != nullptr)
+    copy->left = left->CopySubTree();
+  if (right != nullptr)
+    copy->right = right->CopySubTree();
+  return copy;
 }
 
 //versimpelt expressies
@@ -243,8 +271,9 @@ void Node::Simplify() {
   }
 }
 
-//differentieert node.
+//differentieert knoop.
 void Node::Differentiate(char x) {
+  int iets;
   //constante
   if (token->type == Token::NUM)
     token->number = 0;
@@ -257,18 +286,118 @@ void Node::Differentiate(char x) {
   else if (token->type == Token::VAR && token->variable != x) {
     token->type = Token::NUM;
     token->number = 0;
-    std::cout << "bla" << '\n';
-        std::cout << "bla" << '\n';
   }
   //macht met constante
+  else if (token->type == Token::EXP && right->token->type == Token::NUM) {
+    if (left->token->type == Token::VAR) {
+      Node *temp = CopySubTree();
+      Node *temp2 = right->CopySubTree();
+      int c = right->token->number;
+      token->type = Token::MULT;
+      token->variable = '*';
+      right = temp;
+      left = temp2;
+      right->right->token->number = c-1;
+    }
+    //kettingregel bij macht met constante
+    else {
+      Node *temp4 = left->CopySubTree();
+      Node *temp = CopySubTree();
+      Node *temp2 = right->CopySubTree();
+      int c = right->token->number;
+      token->type = Token::MULT;
+      token->variable = '*';
+      right = temp;
+      left = temp2;
+      right->right->token->number = c-1;
+      Node *temp3 = CopySubTree();
+      left = temp3;
+      right = temp4;
+      right->Differentiate(x);
+    }
+  }
+
   //cos(x)
-  //if (token->type == Token::SIN) {
-  //  token->type = Token::COS;
-  //}
+  if (token->type == Token::COS) {
+    if (left->token->type == Token::VAR) {
+      Node *temp = left->CopySubTree();
+      token->type = Token::MULT;
+      token->variable = '*';
+      right = new Node("sin", iets);
+      right->left = temp;
+      left->token->type = Token::NUM;
+      left->token->number = -1;
+      left->left = nullptr;
+      left->right =nullptr;
+    }
+    //kettingregel met cos(E)
+    else {
+      Node *temp2 = left->CopySubTree();
+      Node *temp = left->CopySubTree();
+      token->type = Token::MULT;
+      token->variable = '*';
+      right = new Node("sin", iets);
+      right->token->type = Token::SIN;
+      right->left = temp;
+      left->token->type = Token::NUM;
+      left->token->number = -1;
+      left->left = nullptr;
+      left->right =nullptr;
+      Node *temp3 = CopySubTree();
+      left = temp3;
+      right = temp2;
+      right->Differentiate(x);
+    }
+  }
+
   //sin(x)
   else if (token->type == Token::SIN) {
-    token->type = Token::COS;
+    if (left->token->type == Token::VAR)
+      token->type = Token::COS;
+    //kettingregel met sin(E)
+    else {
+      Node *temp = CopySubTree();
+      Node *temp2 = left->CopySubTree();
+      left = temp;
+      left->token->type = Token::COS;
+      token->type = Token::MULT;
+      token->variable = '*';
+      right = temp2;
+      right->Differentiate(x);
+    }
   }
+
+  //product regel
+  else if (token->type == Token::MULT) {
+    Node *temp = CopySubTree();
+    Node *temp2 = CopySubTree();
+    right = temp;
+    left = temp2;
+    token->type = Token::PLUS;
+    token->variable = '+';
+    left->left->Differentiate(x);
+    right->right->Differentiate(x);
+  }
+
+  //quotient regel
+  else if (token->type == Token::DIV) {
+    Node *temp = CopySubTree();
+    Node *temp2 = CopySubTree();
+    Node *temp3 = right->CopySubTree();
+    left = new Node("-", iets);
+    left->left = temp;
+    left->right = temp2;
+    left->left->token->type = Token::MULT;
+    left->left->token->variable = '*';
+    left->right->token->type = Token::MULT;
+    left->right->token->variable = '*';
+    right = new Node("^", iets);
+    right->left = temp3;
+    right->right = new Node("2", iets);
+    left->left->left->Differentiate(x);
+    left->right->right->Differentiate(x);
+  }
+
 }
 
 

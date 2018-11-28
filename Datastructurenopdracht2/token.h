@@ -1,9 +1,14 @@
+//Auteurs:  Olivier Koster (s1826182)
+//          Kousar Sedigi  (s1461907)
+//Datum:    28-11-2018
+
 #ifndef token_h
 #define token_h
 
 #include <string>
 #include <cstring>
 
+//klasse voor Token
 class Token {
 public:
 
@@ -17,6 +22,7 @@ PLUS, MIN , NUM, VAR, MULT, EXP, DIV, SIN, COS, PI } type;
         };
 };
 
+//constructor
 Token::Token(std::string woord) {
   double value;
   char letter;
