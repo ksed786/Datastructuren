@@ -18,50 +18,70 @@
 #include <iostream>
 #include <sstream>
 #include <istream>
+#include <fstream>
 #include "token.h"
 #include "node.h"
 #include "tree.h"
 
-Node* root;
 
+Node* root;
 //Voor DOTfunctie.
-int a, b, c, x, nieuwwaarde;
+int a, b, nieuwwaarde;
+char x;
 //bool isBinaryOperator() const;
 
 int main() {
-//beginDOT
-a = 1;
-b = 1;
-c = 0;
+  Tree S;
+  std::string invoer;
+  std::string deel;
+  std::string expressie;
+  do {
+  std::getline (std::cin,invoer);
+  std::istringstream stream(invoer);
+  stream >> deel;
+    if (deel == "exp"){
+      if (root != nullptr){
+        S.Maakboomleeg(root);
+        expressie = " ";
+      }
+      while (stream >> deel) {
+        expressie += " ";
+        expressie += deel;
+      }
+      S.MakeTree(expressie, root);
+    }
+    else if (deel == "dot"){
+      int b = 1;
+      stream >> deel;
+      std::ofstream myfile (deel);
+      if (myfile.is_open()) {
+        myfile << "digraph G {\n";
+        S.DOT(myfile, root, b);
+        myfile << "}";
+        myfile.close();
+      }
+    }
+    else if (deel == "print"){
+      S.InOrder(root);
+      std::cout <<  std::endl;
+    }
+    else if (deel == "eval"){
+      stream >> deel;
+      std::stringstream(deel) >> nieuwwaarde;
+      S.Evalueren(root, nieuwwaarde);
+    }
+    else if (deel == "diff"){
+      S.TreeDifferentiate(root, x);
+    }
+    else if (deel == "simp"){
+      S.TreeSimplify(root);
+      int a = 1;
+      S.NodeNummerGoedZetten(root, a);
+    }
 
-Tree S;
-std::cout << "Naar welke variablen differentieren? Voer in:" << '\n';
-std::cin >> x;
-//std::cout << "Wat wordt de nieuwe waarde voor x?" << '\n';
-//std::cin >> nieuwwaarde;
+  } while (deel != "end");
 
-S.MakeTree("x", root);
 
-//S.CopySubTree(root);
-//std::cout << "de afgeleide van ' ";
-S.PreOrder(root);
-std::cout << std::endl;
-
-//S.DOT(root, b);
-
-//S.Evalueren(root, nieuwwaarde);
-std::cout << std::endl;
-//S.TreeSimplify(root);
-std::cout << std::endl;
-S.PreOrder(root);
-std::cout << std::endl;
-S.TreeDifferentiate(root, x);
-//S.TreeSimplify(root);
-//std::cout << " ' is ' ";
-S.PreOrder(root);
-std::cout << '\n';
-//std::cout << " '" << '\n';
-//S.InOrder(root); std::cout << std::endl;
 
 
 
