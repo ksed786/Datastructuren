@@ -2,12 +2,6 @@
 //          Kousar Sedigi  (s1461907)
 //Datum:    07-11-2018
 
-// TO DO:
-// -doubles ? verwijderen
-// -commentaar en netheid: switchcases!
-// -check feedback op verbeterpunten.
-// check? "Goed!"
-
 #include <iostream>
 #include <string>
 #include <iostream>
@@ -71,6 +65,7 @@ int main() {
     //differentieren
     else if (deel == "diff"){
       S.TreeDifferentiate(root, x);
+      S.NodeNummerGoedZetten(root, a);
     }
     //vereenvoudigen
     else if (deel == "simp"){
