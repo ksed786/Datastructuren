@@ -68,9 +68,11 @@ void Tree::MakeTree (std::string invoer, Node *&root){
 
 void Tree::InOrder (Node *root){
 
+  if (root->left != NULL)
+    std::cout << "(";
 
   if (root->left != NULL)
-    InOrder(root->left);;
+    InOrder(root->left);
 
   if(root->token->type == Token::PLUS || Token::MIN ||
                           Token::MULT || Token::DIV ||
@@ -83,15 +85,19 @@ void Tree::InOrder (Node *root){
   if (root->token->type == Token::NUM)
       std::cout << root->token->number;
 
-  if (root->right != NULL)
+  if (root->right != NULL) {
     InOrder(root->right);
+    std::cout << ")" ;
+  }
+
+
 
 }
 
 
 
 void Tree::PreOrder (Node *root){
-
+  std::cout << "(" << '\n';
   if(root->token->type == Token::PLUS || Token::MIN ||
                           Token::MULT || Token::DIV ||
                           Token::VAR)
@@ -106,6 +112,7 @@ void Tree::PreOrder (Node *root){
     PreOrder(root->left);
   if (root->right != NULL)
     PreOrder(root->right);
+  std::cout << ")" << '\n';
 
 
 }
