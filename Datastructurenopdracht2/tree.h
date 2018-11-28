@@ -74,6 +74,8 @@ void Tree::InOrder (Node *root){
 
     std::cout << ")" ;
   }
+  if (root->left != NULL && root->right == NULL)
+    std::cout << ")" ;
 
 }
 
@@ -259,14 +261,13 @@ void Tree::Maakboomleeg(Node *&root){
     Maakboomleeg(root->left);
   if (root->right->left != nullptr)
     Maakboomleeg(root->right);
-  if (root->left->left == nullptr && root->right->left == nullptr){
-    root->left->token = nullptr;
-    root->left = nullptr;
-    root->right->token = nullptr;
-    root->right = nullptr;
-    root->token = nullptr;
-    root = nullptr;
-  }
+  delete root->left;
+  root->left = nullptr;
+  delete root->right;
+  root->right = nullptr;
+  delete root->token;
+  root->token = nullptr;
+  root = nullptr;
 }
 
 #endif
