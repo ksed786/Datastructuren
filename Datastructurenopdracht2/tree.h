@@ -47,7 +47,10 @@ void Tree::MakeTree (std::string invoer, Node *&root){
 //print in in-orde
 void Tree::InOrder (Node *root){
   if (root->left != NULL)
-    InOrder(root->left);;
+    std::cout << "(";
+
+  if (root->left != NULL)
+    InOrder(root->left);
 
   if(root->token->type == Token::PLUS || Token::MIN ||
                           Token::MULT || Token::DIV ||
@@ -60,8 +63,14 @@ void Tree::InOrder (Node *root){
   if (root->token->type == Token::NUM)
       std::cout << root->token->number;
 
-  if (root->right != NULL)
+  if (root->right != NULL) {
     InOrder(root->right);
+
+    std::cout << ")" ;
+  }
+  if (root->left != NULL && root->right == NULL)
+    std::cout << ")" ;
+
 }
 
 
