@@ -1,3 +1,7 @@
+//Auteurs:  Olivier Koster (s1826182)
+//          Kousar Sedigi  (s1461907)
+//Datum:    28-11-2018
+
 #ifndef tree_h
 #define tree_h
 
@@ -6,7 +10,7 @@
 #include <iostream>
 #include <string>
 
-
+//Klasse voor boom
 class Tree {
   public:
     void MakeTree(std::string invoer, Node *&root);
@@ -15,7 +19,6 @@ class Tree {
     void DOT(Node *root, int &b);
     void TreeSimplify(Node *root);
     void TreeDifferentiate(Node *root, char x);
-    void CopySubTree(Node *root);
     void Evalueren(Node *&root, int x);
     //int NumberOfNodes(Node *root, int &numberofnodes);
 
@@ -23,6 +26,7 @@ class Tree {
     char name;
 };
 
+//maakt boom
 void Tree::MakeTree (std::string invoer, Node *&root){
     std::string deel;
     int nodenumber = 1;
@@ -39,31 +43,8 @@ void Tree::MakeTree (std::string invoer, Node *&root){
 
 }
 
-/* void Tree::CopySubTree(Node *root){
-  std::stringstream ss;
-  std::string str;
-  Node* copy;
-  if (root->token->type == Token::NUM) {
-    ss << root->token->number;
-    ss >> str;
-    copy = new Node(str);
-  }
-  else {
-    ss << root->token->variable;
-    ss >> str;
-    copy = new Node(str);
-  }
-  //if (root->left != nullptr)
-  //  CopySubTree(Copy->left);
-  //if (root->right != nullptr)
-  //  CopySubTree(Copy->right);
-}
-*/
-
-
+//print in in-orde
 void Tree::InOrder (Node *root){
-
-
   if (root->left != NULL)
     InOrder(root->left);;
 
@@ -80,13 +61,12 @@ void Tree::InOrder (Node *root){
 
   if (root->right != NULL)
     InOrder(root->right);
-
 }
 
 
-
+//print in pre-orde. wordt niet gebruikt bij de interface,
+//maar is vooral gebruikt het checken van ons programma.
 void Tree::PreOrder (Node *root){
-
   if(root->token->type == Token::PLUS || Token::MIN ||
                           Token::MULT || Token::DIV ||
                           Token::VAR)
@@ -101,10 +81,9 @@ void Tree::PreOrder (Node *root){
     PreOrder(root->left);
   if (root->right != NULL)
     PreOrder(root->right);
-
-
 }
 
+//versimpelt the boom
 void Tree::TreeSimplify (Node *root) {
   if (root->left != nullptr) {
     if ((root->left->token->type == Token::PLUS &&
@@ -156,71 +135,44 @@ void Tree::TreeSimplify (Node *root) {
     root->Simplify();
 }
 
-//differentieerd de boom. deze functie moet recursief zijn.
+//differentieerd de boom.
 void Tree::TreeDifferentiate(Node *root, char x) {
-  if (root->left != nullptr)
-    TreeDifferentiate(root, x);
-  if (root->right != nullptr)
-    TreeDifferentiate(root, x);
-    root->Differentiate(x);
-  //iets van nieuwe subboom maken met pointer sub? ofmoet dit in NODE?
-  //return sub;
-
+  root->Differentiate(x);
 }
 
-//commentaar
+//schrijft een file uit met DOT notatie van de boom
 void Tree::DOT (Node *root , int &b) {
-    //Diagraph een naam geven (hoofletter) en het begin van de sequence.
-    //if (a == 0 && b == 1) {
-    //  std::cout<< "Insert letter: diagraph name" << std::endl;
-    //  std::cin >> name;
-  //    std::cout << std::endl << std::endl << std::endl << "digraph "
-  //              << name << " {" << std::endl;
-//}
 
-  // printnode
-    std::cout << "  " << b << " [label=" << '"';
-      if(root->token->type == Token::PLUS || Token::MIN ||
-                              Token::MULT || Token::DIV || Token::VAR)
-          std::cout << root->token->variable;
-      if (root->token->type == Token::NUM)
-          std::cout << root->token->number;
-      if(root->token->type == Token::SIN)
-        std::cout << "sin";
-      if(root->token->type == Token::COS)
-        std::cout << "cos";
-      std::cout << '"' << "]" << std::endl;
+  std::cout << "  " << b << " [label=" << '"';
+    if(root->token->type == Token::PLUS || Token::MIN ||
+                            Token::MULT || Token::DIV || Token::VAR)
+        std::cout << root->token->variable;
+    if (root->token->type == Token::NUM)
+        std::cout << root->token->number;
+    if(root->token->type == Token::SIN)
+      std::cout << "sin";
+    if(root->token->type == Token::COS)
+      std::cout << "cos";
+    std::cout << '"' << "]" << std::endl;
 
 
 
 
-     // gaat linker node in.
-     b++;
-      if (root->left != nullptr) {
-        std::cout << root->count << "->" << root->left->count << std::endl;
-        DOT(root->left, b);
-      }
+   b++;
+    if (root->left != nullptr) {
+      std::cout << root->count << "->" << root->left->count << std::endl;
+      DOT(root->left, b);
+    }
 
-      //gaat rechter node in.
-        if (root->right != nullptr) {
-        std::cout << root->count << "->" << root->right->count << std::endl;
-        DOT(root->right, b);
-      }
+    //gaat rechter node in.
+      if (root->right != nullptr) {
+      std::cout << root->count << "->" << root->right->count << std::endl;
+      DOT(root->right, b);
+    }
 
-
-
-
-
-
-
-
-  //std::cout << b << c << '\n';
-  //if () {
-  //  std::cout << "}" << std::endl;
-  //  std::cout << std::endl << std::endl << std::endl << std::endl;
-//  }
 }
 
+//laat variable x invullen en uitwerken.
 void Tree::Evalueren (Node *&root, int x) {
   if(root->token->variable == 'x'){
     root->token->type = Token::NUM;
@@ -230,7 +182,6 @@ void Tree::Evalueren (Node *&root, int x) {
     Evalueren(root->left, x);
   if (root->right != nullptr)
     Evalueren(root->right, x);
-
 }
 
 

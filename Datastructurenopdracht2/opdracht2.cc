@@ -1,13 +1,10 @@
 //Auteurs:  Olivier Koster (s1826182)
 //          Kousar Sedigi  (s1461907)
-//Datum:    07-11-2018
+//Datum:    28-11-2018
 
 // TO DO:
-// -evalueren
 // -differentieren
-// -interface
 // -doubles ? verwijderen
-// -onnodige dingetje weghalen
 // -commentaar en netheid: switchcases!
 // -check feedback op verbeterpunten.
 // check? "Goed!"
@@ -24,10 +21,11 @@
 
 Node* root;
 
-//Voor DOTfunctie.
-int a, b, c, x, nieuwwaarde;
-//bool isBinaryOperator() const;
 
+int a, b, c, nieuwwaarde;
+char x;
+
+//main interface
 int main() {
 //beginDOT
 a = 1;
@@ -35,17 +33,16 @@ b = 1;
 c = 0;
 
 Tree S;
+
 std::cout << "Naar welke variablen differentieren? Voer in:" << '\n';
 std::cin >> x;
+
+//voor evalueren
 //std::cout << "Wat wordt de nieuwe waarde voor x?" << '\n';
 //std::cin >> nieuwwaarde;
 
-S.MakeTree("x", root);
-
-//S.CopySubTree(root);
+S.MakeTree("cos * x y", root);
 //std::cout << "de afgeleide van ' ";
-S.PreOrder(root);
-std::cout << std::endl;
 
 //S.DOT(root, b);
 
