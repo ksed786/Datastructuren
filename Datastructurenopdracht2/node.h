@@ -16,8 +16,6 @@ public:
   Node(std::string woord, int nodenumber);
   void AddNode(std::string woord , int nodenumber);
   bool IsComplete();
-  //void PrintNode();
-  //bool Connection(int &a, int &b);
   Node *CopySubTree();
   void Simplify();
   void Differentiate(char x);

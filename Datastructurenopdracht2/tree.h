@@ -16,11 +16,12 @@ class Tree {
     void MakeTree(std::string invoer, Node *&root);
     void PreOrder(Node *root);
     void InOrder(Node *root);
-    void DOT(Node *root, int &b);
+    void DOT(std::ofstream &myfile, Node *root , int &b);
     void TreeSimplify(Node *root);
     void TreeDifferentiate(Node *root, char x);
     void Evalueren(Node *&root, int x);
-    //int NumberOfNodes(Node *root, int &numberofnodes);
+    void NodeNummerGoedZetten(Node *&root, int b);
+    void Maakboomleeg(Node *&root);
 
     int a, b;
     char name;
@@ -141,35 +142,73 @@ void Tree::TreeDifferentiate(Node *root, char x) {
 }
 
 //schrijft een file uit met DOT notatie van de boom
-void Tree::DOT (Node *root , int &b) {
+void Tree::DOT (std::ofstream &myfile, Node *root , int &b) {
 
-  std::cout << "  " << b << " [label=" << '"';
-    if(root->token->type == Token::PLUS || Token::MIN ||
+    if (b==1){
+      // Bij nummer gaf die elke keer een spatie erbij daarom printen we nummer zonder "" tekens.
+      if (root->token->type == Token::NUM){
+        myfile << "  " << root->count << " [label=";
+        myfile << root->token->number;
+      }
+      else {
+      myfile << "  " << root->count << " [label=" << '\"';
+      if(root->token->type == Token::PLUS || Token::MIN ||
+                              Token::MULT || Token::DIV || Token::VAR)
+          myfile << root->token->variable;
+      if(root->token->type == Token::SIN)
+        myfile << "sin";
+      if(root->token->type == Token::COS)
+        myfile << "cos";
+        myfile << '\"';
+    }
+      myfile << "]" << std::endl;;
+      b++;
+
+  }
+
+  // gaat linker node in.
+  if (root->left != nullptr) {
+    if (root->left->token->type == Token::NUM){
+      myfile << "  " << root->left->count << " [label=";
+      myfile << root->left->token->number;
+    }
+    else {
+      myfile << "  " << root->left->count << " [label=" << '\"';
+      if(root->left->token->type == Token::PLUS || Token::MIN ||
+                              Token::MULT || Token::DIV || Token::VAR)
+          myfile << root->left->token->variable;
+      if(root->left->token->type == Token::SIN)
+        myfile << "sin";
+      if(root->left->token->type == Token::COS)
+        myfile << "cos";
+        myfile << '\"';
+    }
+      myfile << "]" << std::endl;
+    myfile << root->count << "->" << root->left->count << std::endl;
+    DOT(myfile, root->left, b);
+  }
+
+  //gaat rechter node in.
+  if (root->right != nullptr) {
+    if (root->right->token->type == Token::NUM){
+      myfile << "  " << root->right->count << " [label=";
+      myfile << root->right->token->number;
+    }
+    else {
+      myfile << "  " << root->right->count << " [label=" << '\"';
+    if(root->right->token->type == Token::PLUS || Token::MIN ||
                             Token::MULT || Token::DIV || Token::VAR)
-        std::cout << root->token->variable;
-    if (root->token->type == Token::NUM)
-        std::cout << root->token->number;
-    if(root->token->type == Token::SIN)
-      std::cout << "sin";
-    if(root->token->type == Token::COS)
-      std::cout << "cos";
-    std::cout << '"' << "]" << std::endl;
-
-
-
-
-   b++;
-    if (root->left != nullptr) {
-      std::cout << root->count << "->" << root->left->count << std::endl;
-      DOT(root->left, b);
-    }
-
-    //gaat rechter node in.
-      if (root->right != nullptr) {
-      std::cout << root->count << "->" << root->right->count << std::endl;
-      DOT(root->right, b);
-    }
-
+        myfile << root->right->token->variable;
+    if(root->right->token->type == Token::SIN)
+      myfile << "sin";
+    if(root->right->token->type == Token::COS)
+      myfile << "cos";
+    myfile << '\"';
+  }
+    myfile << "]" << std::endl;
+    myfile << root->count << "->" << root->right->count << std::endl;
+    DOT(myfile, root->right, b);
+  }
 }
 
 //laat variable x invullen en uitwerken.
@@ -184,6 +223,33 @@ void Tree::Evalueren (Node *&root, int x) {
     Evalueren(root->right, x);
 }
 
+void Tree::NodeNummerGoedZetten (Node *&root, int a) {
+  root->count = a;
+  if (root->left != nullptr){
+    a++;
+    NodeNummerGoedZetten(root->left, a);
+  }
+  if (root->right != nullptr){
+    a++;
+    NodeNummerGoedZetten(root->right, a);
+  }
+
+}
+
+void Tree::Maakboomleeg(Node *&root){
+  if (root->left->left != nullptr)
+    Maakboomleeg(root->left);
+  if (root->right->left != nullptr)
+    Maakboomleeg(root->right);
+  if (root->left->left == nullptr && root->right->left == nullptr){
+    root->left->token = nullptr;
+    root->left = nullptr;
+    root->right->token = nullptr;
+    root->right = nullptr;
+    root->token = nullptr;
+    root = nullptr;
+  }
+}
 
 
 

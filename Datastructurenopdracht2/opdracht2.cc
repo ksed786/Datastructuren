@@ -1,64 +1,88 @@
 //Auteurs:  Olivier Koster (s1826182)
 //          Kousar Sedigi  (s1461907)
-//Datum:    28-11-2018
+//Datum:    07-11-2018
 
 // TO DO:
-// -differentieren
 // -doubles ? verwijderen
 // -commentaar en netheid: switchcases!
 // -check feedback op verbeterpunten.
 // check? "Goed!"
-
 
 #include <iostream>
 #include <string>
 #include <iostream>
 #include <sstream>
 #include <istream>
+#include <fstream>
 #include "token.h"
 #include "node.h"
 #include "tree.h"
 
+
 Node* root;
 
-
-int a, b, c, nieuwwaarde;
+int a, b, nieuwwaarde;
 char x;
 
 //main interface
 int main() {
-//beginDOT
-a = 1;
-b = 1;
-c = 0;
+  Tree S;
+  std::string invoer;
+  std::string deel;
+  std::string expressie;
+  do {
+  std::getline (std::cin,invoer);
+  std::istringstream stream(invoer);
+  stream >> deel;
+    //expressie invoeren
+    if (deel == "exp"){
+      if (root != nullptr){
+        S.Maakboomleeg(root);
+        expressie = " ";
+      }
+      while (stream >> deel) {
+        expressie += " ";
+        expressie += deel;
+      }
+      S.MakeTree(expressie, root);
+    }
+    //DOT printen naar .dot-file
+    else if (deel == "dot"){
+      int b = 1;
+      stream >> deel;
+      std::ofstream myfile (deel);
+      if (myfile.is_open()) {
+        myfile << "digraph G {\n";
+        S.DOT(myfile, root, b);
+        myfile << "}";
+        myfile.close();
+      }
+    }
+    //in-orde printen
+    else if (deel == "print"){
+      S.InOrder(root);
+      std::cout <<  std::endl;
+    }
+    //evalueren
+    else if (deel == "eval"){
+      stream >> deel;
+      std::stringstream(deel) >> nieuwwaarde;
+      S.Evalueren(root, nieuwwaarde);
+    }
+    //differentieren
+    else if (deel == "diff"){
+      S.TreeDifferentiate(root, x);
+    }
+    //vereenvoudigen
+    else if (deel == "simp"){
+      S.TreeSimplify(root);
+      int a = 1;
+      S.NodeNummerGoedZetten(root, a);
+    }
+    //beeindigen
+  } while (deel != "end");
 
-Tree S;
 
-std::cout << "Naar welke variablen differentieren? Voer in:" << '\n';
-std::cin >> x;
-
-//voor evalueren
-//std::cout << "Wat wordt de nieuwe waarde voor x?" << '\n';
-//std::cin >> nieuwwaarde;
-
-S.MakeTree("cos * x y", root);
-//std::cout << "de afgeleide van ' ";
-
-//S.DOT(root, b);
-
-//S.Evalueren(root, nieuwwaarde);
-std::cout << std::endl;
-//S.TreeSimplify(root);
-std::cout << std::endl;
-S.PreOrder(root);
-std::cout << std::endl;
-S.TreeDifferentiate(root, x);
-//S.TreeSimplify(root);
-//std::cout << " ' is ' ";
-S.PreOrder(root);
-std::cout << '\n';
-//std::cout << " '" << '\n';
-//S.InOrder(root); std::cout << std::endl;
 
 
 
