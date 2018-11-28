@@ -150,9 +150,9 @@ void Tree::TreeSimplify (Node *root) {
     }
     TreeSimplify(root->right);
   }
-  if (root->token->arity() == 2)          //is dit niet onnodig???
+  if (root->token->arity() == 2)
     root->Simplify();
-  else if (root->token->arity() == 1)      //********************************
+  else if (root->token->arity() == 1)   //********************************
     root->Simplify();
 }
 
@@ -160,12 +160,11 @@ void Tree::TreeSimplify (Node *root) {
 void Tree::TreeDifferentiate(Node *root, char x) {
   if (root->left != nullptr)
     TreeDifferentiate(root, x);
-  if (root->right != nullptr) {
+  if (root->right != nullptr)
     TreeDifferentiate(root, x);
     root->Differentiate(x);
   //iets van nieuwe subboom maken met pointer sub? ofmoet dit in NODE?
   //return sub;
-  }
 
 }
 
@@ -223,7 +222,7 @@ void Tree::DOT (Node *root , int &b) {
 }
 
 void Tree::Evalueren (Node *&root, int x) {
-  if(root->token->variable == x){
+  if(root->token->variable == 'x'){
     root->token->type = Token::NUM;
     root->token->number = x;
   }

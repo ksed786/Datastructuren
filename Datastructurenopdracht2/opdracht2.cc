@@ -25,7 +25,7 @@
 Node* root;
 
 //Voor DOTfunctie.
-int a, b, c, x;
+int a, b, c, x, nieuwwaarde;
 //bool isBinaryOperator() const;
 
 int main() {
@@ -37,31 +37,28 @@ c = 0;
 Tree S;
 std::cout << "Naar welke variablen differentieren? Voer in:" << '\n';
 std::cin >> x;
-std::cout << "Wat wordt de nieuwe waarde voor x?" << '\n';
-std::cin >> x;
+//std::cout << "Wat wordt de nieuwe waarde voor x?" << '\n';
+//std::cin >> nieuwwaarde;
 
-S.MakeTree("+ 2 4", root);
+S.MakeTree("x", root);
 
 //S.CopySubTree(root);
 //std::cout << "de afgeleide van ' ";
 S.PreOrder(root);
 std::cout << std::endl;
-S.TreeSimplify(root);
-std::cout << std::endl;
-S.PreOrder(root);
+
 //S.DOT(root, b);
 
-//S.Evalueren(root, x);
+//S.Evalueren(root, nieuwwaarde);
+std::cout << std::endl;
+//S.TreeSimplify(root);
 std::cout << std::endl;
 S.PreOrder(root);
 std::cout << std::endl;
-S.TreeSimplify(root);
-std::cout << std::endl;
-S.PreOrder(root);
-
+S.TreeDifferentiate(root, x);
 //S.TreeSimplify(root);
 //std::cout << " ' is ' ";
-//S.PreOrder(root);
+S.PreOrder(root);
 std::cout << '\n';
 //std::cout << " '" << '\n';
 //S.InOrder(root); std::cout << std::endl;
