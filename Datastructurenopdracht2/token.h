@@ -52,6 +52,7 @@ Token::Token(std::string woord) {
     type = NUM;
     number = value;
   }
+
   else {
     letter = woord[0];
     type = VAR;
