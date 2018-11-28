@@ -31,7 +31,7 @@ void Tree::MakeTree (std::string invoer, Node *&root){
     root = new Node(deel);
     while (stream >> deel) {
       //std::cout << deel << std::endl;
-      root->AddNode(deel);
+      root->AddNode(deel, i);
     }
 
 }
