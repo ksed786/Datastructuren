@@ -256,7 +256,7 @@ void Node::Simplify() {
       }
     }
   }
-  else if(token->arity() == 1) {                 //dit werkt nu nooit!?
+  else if(token->arity() == 1) {
     double a = left->token->number;
     if (token->type == Token::SIN) {
       a = sin(a);
@@ -332,7 +332,20 @@ void Node::Differentiate(char x) {
     }
     //kettingregel met cos(E)
     else {
+      Node *temp = left->CopySubTree();
       Node *temp2 = left->CopySubTree();
+      token->type = Token::MULT;
+      token->variable = '*';
+      left->left->token->type = Token::NUM;
+      left->left->token->number = -1;
+      left->right->token->type = Token::SIN;
+      left->right->token->variable = ' ';
+      left->right->left = temp;
+      right = temp2;
+      right->Differentiate(x);
+
+
+    /*  Node *temp2 = left->CopySubTree();
       Node *temp = left->CopySubTree();
       token->type = Token::MULT;
       token->variable = '*';
@@ -346,7 +359,8 @@ void Node::Differentiate(char x) {
       Node *temp3 = CopySubTree();
       left = temp3;
       right = temp2;
-      right->Differentiate(x);
+      right->Differentiate(x); */
+
     }
   }
 

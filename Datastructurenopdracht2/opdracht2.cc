@@ -37,7 +37,6 @@ int main() {
     //expressie invoeren
     if (deel == "exp"){
       if (root != nullptr){
-        S.Maakboomleeg(root);
         expressie = " ";
       }
       while (stream >> deel) {
