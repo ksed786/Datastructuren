@@ -2,12 +2,6 @@
 //          Kousar Sedigi  (s1461907)
 //Datum:    07-11-2018
 
-// TO DO:
-// -doubles ? verwijderen
-// -commentaar en netheid: switchcases!
-// -check feedback op verbeterpunten.
-// check? "Goed!"
-
 #include <iostream>
 #include <string>
 #include <iostream>
@@ -23,6 +17,7 @@ Node* root;
 
 int a, b, nieuwwaarde;
 char x;
+
 //main interface
 int main() {
   Tree S;
@@ -33,12 +28,10 @@ int main() {
   std::getline (std::cin,invoer);
   std::istringstream stream(invoer);
   stream >> deel;
-
-
     //expressie invoeren
     if (deel == "exp"){
       if (root != nullptr){
-        expressie = "";
+        expressie = " ";
       }
       while (stream >> deel) {
         expressie += " ";
@@ -46,7 +39,6 @@ int main() {
       }
       S.MakeTree(expressie, root);
     }
-
     //DOT printen naar .dot-file
     else if (deel == "dot"){
       int b = 1;
@@ -59,23 +51,21 @@ int main() {
         myfile.close();
       }
     }
-
     //in-orde printen
     else if (deel == "print"){
       S.InOrder(root);
       std::cout <<  std::endl;
     }
-
     //evalueren
     else if (deel == "eval"){
       stream >> deel;
       std::stringstream(deel) >> nieuwwaarde;
       S.Evalueren(root, nieuwwaarde);
     }
-
     //differentieren
     else if (deel == "diff"){
       S.TreeDifferentiate(root, x);
+      S.NodeNummerGoedZetten(root, a);
     }
     //vereenvoudigen
     else if (deel == "simp"){
@@ -83,8 +73,6 @@ int main() {
       int a = 1;
       S.NodeNummerGoedZetten(root, a);
     }
-
-
     //beeindigen
   } while (deel != "end");
 
