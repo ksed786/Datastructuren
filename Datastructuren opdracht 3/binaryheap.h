@@ -2,13 +2,8 @@
 //          Kousar Sedigi  (s1461907)
 //Datum:    02-01-2019
 
-#include <isotream>
+#ifndef binaryheap_h
+#define binaryheap_h
 
 
-
-int main(){
-
-  std::cout << "bla bla" << '\n';
-  return 0;
-
-}
+#endif
