@@ -12,7 +12,6 @@ Node::Node(std::string woord, int nodenumber) {
   count = nodenumber;
 }
 
-
 void Node::AddNode(std::string woord , int nodenumber) {
     int arity = token->arity();
 
@@ -45,7 +44,6 @@ void Node::AddNode(std::string woord , int nodenumber) {
     }
 }
 
-
 bool Node::IsComplete() {
   int arity = token->arity();
   if (arity == 0)
@@ -63,7 +61,6 @@ bool Node::IsComplete() {
   }
   else return false;
 }
-
 
 Node *Node::CopySubTree(){
   std::stringstream ss;
@@ -86,7 +83,6 @@ Node *Node::CopySubTree(){
     copy->right = right->CopySubTree();
   return copy;
 }
-
 
 void Node::Simplify() {
   if(token->arity() == 2) {
@@ -162,13 +158,6 @@ void Node::Simplify() {
             left = nullptr;
             right = nullptr;
         }
-        //deze plek was gereserveerd voor een mogelijke oplossing voor 0 - x.
-        /* else if (right->token->type == Token::NUM && right->token->number == 0) {
-            token->type = Token::VAR;
-            token->variable = left->token->variable;
-            left = nullptr;
-            right = nullptr;
-        } */
       }
       else if (token->type == Token::MULT) {
         if (left->token->type == Token::NUM && left->token->number == 1) {
@@ -243,19 +232,19 @@ void Node::Simplify() {
   }
 }
 
-
 void Node::Differentiate(char x) {
   int arbitrarynodenumber = 0;
   //constante
-  if (token->type == Token::NUM)
+  if (token->type == Token::NUM) {
     token->number = 0;
+  }
   //variable x == x
-  else if (token->type == Token::VAR && token->variable == x) {
+  else if (token->type == Token::VAR && token->variable == 'x') {
     token->type = Token::NUM;
     token->number = 1;
   }
   //variable y != x
-  else if (token->type == Token::VAR && token->variable != x) {
+  else if (token->type == Token::VAR && token->variable != 'x') {
     token->type = Token::NUM;
     token->number = 0;
   }
@@ -290,7 +279,7 @@ void Node::Differentiate(char x) {
   }
 
   //cos(x)
-  if (token->type == Token::COS) {
+  else if (token->type == Token::COS) {
     if (left->token->type == Token::VAR) {
       Node *temp = left->CopySubTree();
       token->type = Token::MULT;
@@ -315,24 +304,6 @@ void Node::Differentiate(char x) {
       left->right->left = temp;
       right = temp2;
       right->Differentiate(x);
-
-
-    /*  Node *temp2 = left->CopySubTree();
-      Node *temp = left->CopySubTree();
-      token->type = Token::MULT;
-      token->variable = '*';
-      right = new Node("sin", arbitrarynodenumber);
-      right->token->type = Token::SIN;
-      right->left = temp;
-      left->token->type = Token::NUM;
-      left->token->number = -1;
-      left->left = nullptr;
-      left->right =nullptr;
-      Node *temp3 = CopySubTree();
-      left = temp3;
-      right = temp2;
-      right->Differentiate(x); */
-
     }
   }
 
@@ -351,6 +322,18 @@ void Node::Differentiate(char x) {
       right = temp2;
       right->Differentiate(x);
     }
+  }
+
+  //som
+  else if (token->type == Token::PLUS) {
+      left->Differentiate(x);
+      right->Differentiate(x);
+  }
+
+  //min
+  else if (token->type == Token::MIN) {
+      left->Differentiate(x);
+      right->Differentiate(x);
   }
 
   //product regel

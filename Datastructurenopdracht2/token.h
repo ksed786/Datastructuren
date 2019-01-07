@@ -15,9 +15,9 @@
 class Token {
   public:
 
-  //constructor
+  //constructor.
   Token(std::string woord);
-  //bepaald ariteit.
+  //bepaalt ariteit.
   int arity();
         enum {
 PLUS, MIN , NUM, VAR, MULT, EXP, DIV, SIN, COS, PI } type;

@@ -25,7 +25,7 @@ public:
   //kopieert subbomen voor differentieren.
   Node *CopySubTree();
   //versimpelt expressies
-//uitzondering: 0 - x versimpelt niet naar -x
+  //uitzondering: 0 - x versimpelt niet naar -x
   void Simplify();
   //differentieert knoop.
   void Differentiate(char x);
