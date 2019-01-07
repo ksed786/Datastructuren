@@ -4,7 +4,6 @@
 
 #include "token.h"
 
-//constructor
 Token::Token(std::string woord) {
   double value;
   char letter;

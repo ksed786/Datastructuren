@@ -16,11 +16,18 @@
 class Node {
 public:
 
+  //constructor
   Node(std::string woord, int nodenumber);
+  //voeg node toe. Deze functie wordt aangeroepen door MakeTree.
   void AddNode(std::string woord , int nodenumber);
+  //Checkt of de boom compleet is.
   bool IsComplete();
+  //kopieert subbomen voor differentieren.
   Node *CopySubTree();
+  //versimpelt expressies
+//uitzondering: 0 - x versimpelt niet naar -x
   void Simplify();
+  //differentieert knoop.
   void Differentiate(char x);
 
 
