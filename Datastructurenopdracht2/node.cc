@@ -12,6 +12,9 @@ Node::Node(std::string woord, int nodenumber) {
   count = nodenumber;
 }
 
+Node::~Node() {
+  
+}
 
 void Node::AddNode(std::string woord , int nodenumber) {
     int arity = token->arity();

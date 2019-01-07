@@ -17,6 +17,8 @@ class Token {
 
   //constructor
   Token(std::string woord);
+  //destructor
+  Token::~Token();
 
   //arity bepalen van een token
   int arity();

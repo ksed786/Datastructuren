@@ -18,6 +18,8 @@ public:
 
   //constructor
   Node(std::string woord, int nodenumber);
+  //destructor
+  Node::~Node()
   //voeg node toe. Deze functie wordt aangeroepen door MakeTree.
   void AddNode(std::string woord , int nodenumber);
   //Checkt of de boom compleet is.

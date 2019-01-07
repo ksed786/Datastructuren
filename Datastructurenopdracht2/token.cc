@@ -47,6 +47,11 @@ Token::Token(std::string woord) {
   }
 }
 
+Token::~Token() {
+ 
+  }
+
+
 int Token::arity() {
   switch (type) {
     case PLUS:
