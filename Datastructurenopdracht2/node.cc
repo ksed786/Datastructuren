@@ -2,10 +2,8 @@
 //          Kousar Sedigi  (s1461907)
 //Datum:    28-11-2018
 
+
 #include "node.h"
-#include "token.h"
-#include <iostream>
-#include <cmath>
 
 //constructor
 Node::Node(std::string woord, int nodenumber) {

@@ -2,6 +2,13 @@
 //          Kousar Sedigi  (s1461907)
 //Datum:    28-11-2018
 
+#include "token.h"
+#include <iostream>
+#include <sstream>
+#include <istream>
+#include <fstream>
+#include <cmath>
+
 #ifndef node_h
 #define node_h
 

@@ -2,6 +2,12 @@
 //          Kousar Sedigi  (s1461907)
 //Datum:    28-11-2018
 
+
+#include <iostream>
+#include <sstream>
+#include <istream>
+#include <fstream>
+#include <cmath>
 #ifndef token_h
 #define token_h
 

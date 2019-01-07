@@ -8,10 +8,11 @@
 class Element {
   public:
 
-    int elementnummner;
+    int elementnummer;
     Element* volgende;
-    Element* vorige;
     int gewicht;
+
+
 
 };
 

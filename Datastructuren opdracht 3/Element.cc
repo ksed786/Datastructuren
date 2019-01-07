@@ -6,8 +6,3 @@
 #include "element.h"
 
 //constructor
-Element::Element(int nr) {
-  elementnummer = nr;
-  volgende = nullptr;
-  gewicht = nodenumber;
-}

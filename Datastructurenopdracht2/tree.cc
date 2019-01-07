@@ -3,10 +3,6 @@
 //Datum:    28-11-2018
 
 #include "tree.h"
-#include "node.h"
-#include "token.h"
-#include <iostream>
-#include <string>
 
 //maakt boom
 void Tree::MakeTree (std::string invoer, Node *&root){
