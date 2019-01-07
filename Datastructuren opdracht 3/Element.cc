@@ -2,13 +2,7 @@
 //          Kousar Sedigi  (s1461907)
 //Datum:    02-01-2019
 
-#include <iostream>
 
+#include "element.h"
 
-
-int main(){
-
-  std::cout << "bla bla" << '\n';
-  return 0;
-
-}
+//constructor

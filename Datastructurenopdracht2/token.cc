@@ -3,8 +3,6 @@
 //Datum:    28-11-2018
 
 #include "token.h"
-#include <string>
-#include <cstring>
 
 //constructor
 Token::Token(std::string woord) {
