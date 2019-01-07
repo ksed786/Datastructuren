@@ -4,7 +4,6 @@
 
 #include "tree.h"
 
-//maakt boom
 void Tree::MakeTree (std::string invoer, Node *&root){
     std::string deel;
     int nodenumber = 1;
@@ -18,7 +17,6 @@ void Tree::MakeTree (std::string invoer, Node *&root){
 
 }
 
-//print in in-orde
 void Tree::InOrder (Node *root){
   if (root->left != NULL)
     std::cout << "(";
@@ -47,9 +45,6 @@ void Tree::InOrder (Node *root){
 
 }
 
-
-//print in pre-orde. wordt niet gebruikt bij de interface,
-//maar is vooral gebruikt het checken van ons programma.
 void Tree::PreOrder (Node *root){
   if(root->token->type == Token::PLUS || Token::MIN ||
                           Token::MULT || Token::DIV ||
@@ -67,7 +62,6 @@ void Tree::PreOrder (Node *root){
     PreOrder(root->right);
 }
 
-//versimpelt the boom
 void Tree::TreeSimplify (Node *root) {
   if (root->left != nullptr) {
     if ((root->left->token->type == Token::PLUS &&
@@ -119,16 +113,13 @@ void Tree::TreeSimplify (Node *root) {
     root->Simplify();
 }
 
-//differentieerd de boom.
 void Tree::TreeDifferentiate(Node *root, char x) {
   root->Differentiate(x);
 }
 
-//schrijft een file uit met DOT notatie van de boom
 void Tree::DOT (std::ofstream &myfile, Node *root , int &b) {
 
     if (b==1){
-      // Bij nummer gaf die elke keer een spatie erbij daarom printen we nummer zonder "" tekens.
       if (root->token->type == Token::NUM){
         myfile << "  " << root->count << " [label=";
         myfile << root->token->number;
@@ -149,7 +140,6 @@ void Tree::DOT (std::ofstream &myfile, Node *root , int &b) {
 
   }
 
-  // gaat linker node in.
   if (root->left != nullptr) {
     if (root->left->token->type == Token::NUM){
       myfile << "  " << root->left->count << " [label=";
@@ -171,7 +161,6 @@ void Tree::DOT (std::ofstream &myfile, Node *root , int &b) {
     DOT(myfile, root->left, b);
   }
 
-  //gaat rechter node in.
   if (root->right != nullptr) {
     if (root->right->token->type == Token::NUM){
       myfile << "  " << root->right->count << " [label=";
@@ -194,7 +183,6 @@ void Tree::DOT (std::ofstream &myfile, Node *root , int &b) {
   }
 }
 
-//laat variable x invullen en uitwerken.
 void Tree::Evalueren (Node *&root, int x) {
   if(root->token->variable == 'x'){
     root->token->type = Token::NUM;
