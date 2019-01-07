@@ -2,19 +2,17 @@ CC = g++
 
 CompileParms = -c -Wall
 
-OBJS = standaard.o steen.o stand.o opdracht2.o
+Opdracht2: opdracht2.o tree.o node.o token.o
+    	c++ opdracht2.o tree.o node.o token.o -o Opdracht2
 
-Opdr: $(OBJS)
-	$(CC) $(OBJS) -o opdracht
+opdracht2.o: opdracht2.cc
+			c++ -c opdracht2.cc -o opdracht2.o
 
-standaard.o: tree.cc tree.h
-	$(CC) $(CompileParms)  tree.cc
+tree.o: tree.cc tree.h
+			c++ -c tree.cc -o tree.o
 
-steen.o: node.cc node.h
-	$(CC) $(CompileParms)  node.cc
+node.o: node.cc node.h
+			c++ -c node.cc -o node.o
 
-stand.o: token.cc token.h
-	$(CC) $(CompileParms) token.cc
-
-opdracht2.o: opdracht2.cc tree.h
-	$(CC) $(CompileParms)  opdracht2.cc
+token.o: token.cc token.h
+			c++ -c token.cc -o token.o

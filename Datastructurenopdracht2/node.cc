@@ -69,22 +69,19 @@ bool Node::IsComplete() {
 
 //kopieert subbomen voor differentieren.
 Node *Node::CopySubTree(){
-  //std::cout << "Ingang copyfunctie" << '\n';
   std::stringstream ss;
   std::string str;
   Node* copy;
-  int iets;
+  int arbitrarynodenumber = 0;
   if (token->type == Token::NUM) {
-  //  std::cout << "ingang getal" << '\n';
     ss << token->number;
     ss >> str;
-    copy = new Node(str, iets);
+    copy = new Node(str, arbitrarynodenumber);
   }
   else {
-    //std::cout << "ingang + of x" << '\n';
     ss << token->variable;
     ss >> str;
-    copy = new Node(str, iets);
+    copy = new Node(str, arbitrarynodenumber);
   }
   if (left != nullptr)
     copy->left = left->CopySubTree();
@@ -97,7 +94,7 @@ Node *Node::CopySubTree(){
 //uitzondering: 0 - x versimpelt niet naar -x
 void Node::Simplify() {
   if(token->arity() == 2) {
-    if (left->token->type == Token::NUM && right->token->type == Token::NUM) {               // dit moet je ff herzien.
+    if (left->token->type == Token::NUM && right->token->type == Token::NUM) {
         double a = left->token->number;
         double b = right->token->number;
         if (token->type == Token::PLUS) {
@@ -252,7 +249,7 @@ void Node::Simplify() {
 
 //differentieert knoop.
 void Node::Differentiate(char x) {
-  int iets;
+  int arbitrarynodenumber = 0;
   //constante
   if (token->type == Token::NUM)
     token->number = 0;
@@ -302,7 +299,7 @@ void Node::Differentiate(char x) {
       Node *temp = left->CopySubTree();
       token->type = Token::MULT;
       token->variable = '*';
-      right = new Node("sin", iets);
+      right = new Node("sin", arbitrarynodenumber);
       right->left = temp;
       left->token->type = Token::NUM;
       left->token->number = -1;
@@ -328,7 +325,7 @@ void Node::Differentiate(char x) {
       Node *temp = left->CopySubTree();
       token->type = Token::MULT;
       token->variable = '*';
-      right = new Node("sin", iets);
+      right = new Node("sin", arbitrarynodenumber);
       right->token->type = Token::SIN;
       right->left = temp;
       left->token->type = Token::NUM;
@@ -377,16 +374,16 @@ void Node::Differentiate(char x) {
     Node *temp = CopySubTree();
     Node *temp2 = CopySubTree();
     Node *temp3 = right->CopySubTree();
-    left = new Node("-", iets);
+    left = new Node("-", arbitrarynodenumber);
     left->left = temp;
     left->right = temp2;
     left->left->token->type = Token::MULT;
     left->left->token->variable = '*';
     left->right->token->type = Token::MULT;
     left->right->token->variable = '*';
-    right = new Node("^", iets);
+    right = new Node("^", arbitrarynodenumber);
     right->left = temp3;
-    right->right = new Node("2", iets);
+    right->right = new Node("2", arbitrarynodenumber);
     left->left->left->Differentiate(x);
     left->right->right->Differentiate(x);
   }

@@ -14,11 +14,8 @@ void Tree::MakeTree (std::string invoer, Node *&root){
     int nodenumber = 1;
     std::istringstream stream(invoer);
     stream >> deel;
-      //std::cout << deel << std::endl;
-
     root = new Node(deel, nodenumber);
     while (stream >> deel) {
-      //std::cout << deel << std::endl;
       nodenumber++;
       root->AddNode(deel, nodenumber);
     }
@@ -122,7 +119,7 @@ void Tree::TreeSimplify (Node *root) {
   }
   if (root->token->arity() == 2)
     root->Simplify();
-  else if (root->token->arity() == 1)   //********************************
+  else if (root->token->arity() == 1)
     root->Simplify();
 }
 
