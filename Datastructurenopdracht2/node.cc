@@ -5,7 +5,6 @@
 
 #include "node.h"
 
-//constructor
 Node::Node(std::string woord, int nodenumber) {
   token = new Token(woord);
   left = nullptr;
@@ -13,7 +12,7 @@ Node::Node(std::string woord, int nodenumber) {
   count = nodenumber;
 }
 
-//voeg node toe. Deze functie wordt aangeroepen door MakeTree.
+
 void Node::AddNode(std::string woord , int nodenumber) {
     int arity = token->arity();
 
@@ -46,7 +45,7 @@ void Node::AddNode(std::string woord , int nodenumber) {
     }
 }
 
-//Checkt of de boom compleet is.
+
 bool Node::IsComplete() {
   int arity = token->arity();
   if (arity == 0)
@@ -65,7 +64,7 @@ bool Node::IsComplete() {
   else return false;
 }
 
-//kopieert subbomen voor differentieren.
+
 Node *Node::CopySubTree(){
   std::stringstream ss;
   std::string str;
@@ -88,8 +87,7 @@ Node *Node::CopySubTree(){
   return copy;
 }
 
-//versimpelt expressies
-//uitzondering: 0 - x versimpelt niet naar -x
+
 void Node::Simplify() {
   if(token->arity() == 2) {
     if (left->token->type == Token::NUM && right->token->type == Token::NUM) {
@@ -245,7 +243,7 @@ void Node::Simplify() {
   }
 }
 
-//differentieert knoop.
+
 void Node::Differentiate(char x) {
   int arbitrarynodenumber = 0;
   //constante
